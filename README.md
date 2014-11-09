@@ -1,4 +1,4 @@
-# Drought.io ![build status]https://travis-ci.org/theopak/drought.io.svg)
+# Drought.io ![build status](https://travis-ci.org/theopak/drought.io.svg)
 
 by Theo Pak & Altan Gulen for Prof. Cutler's CSCI-4960 "Interactive Visualization" class at RPI.
 
