@@ -1,6 +1,11 @@
 {
   "name": "droughtio",
   "version": "0.0.0",
+  "author": "Theo Pak, Altan Gulen",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/theopak/drought.io.git"
+  },
   "dependencies": {},
   "devDependencies": {
     "grunt": "^0.4.1",
