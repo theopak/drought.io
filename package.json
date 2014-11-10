@@ -7,6 +7,7 @@
     "url": "git://github.com/theopak/drought.io.git"
   },
   "dependencies": {
+    "compass": "^0.1.0",
     "grunt-karma": "^0.9.0",
     "karma": "^0.12.24"
   },
