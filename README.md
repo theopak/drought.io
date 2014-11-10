@@ -1,6 +1,10 @@
-# Drought.io ![build status](https://travis-ci.org/theopak/drought.io.svg)
+# [Drought.io](http://www.drought.io) ![build status](https://travis-ci.org/theopak/drought.io.svg)
 
-by Theo Pak & Altan Gulen for Prof. Cutler's CSCI-4960 "Interactive Visualization" class at RPI.
+> Better than drought.gov!
+
+by Theo Pak & Altan Gulen for [Prof. Cutler's CSCI-4960 "Interactive Visualization"](http://www.cs.rpi.edu/~cutler/classes/visualization/F14/index.php) class at RPI.
+
+![screenshot](screenshot.png)
 
 The interactive visualization is designed for general populations in areas indirectly affected by droughts. Surprise! It turns out that everyone is indirectly affected when prolonged droughts affect critical industries like agriculture. Meteorologists, geoscientists, and visualization geeks may also appreciate the demonstration of an approach for visualizing this information in a way that general audiences understand better than current drought visualizations.
 
