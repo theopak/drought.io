@@ -9,6 +9,8 @@
  */
 angular.module('droughtioApp')
   .controller('MainCtrl', function ($scope, $http) {
+
+    $scope.data = '';
     
     // Get annual/normals data from all stations via NOAA NCDC
     $scope.getNormalsData = function () {
@@ -20,6 +22,7 @@ angular.module('droughtioApp')
       success(function (data) {
         // attach this data to the scope
         //$scope.data = reformatNoaaResponse(data);
+        $scope.data = data;
         console.log($scope.data);
 
         // clear the error messages
@@ -31,6 +34,6 @@ angular.module('droughtioApp')
     };
 
     // Get data for the first time
-    $scope.getNoaaData();
+    $scope.getNormalsData();
 
   });
