@@ -9,7 +9,9 @@
   "dependencies": {
     "compass": "^0.1.0",
     "grunt-karma": "^0.9.0",
-    "karma": "^0.12.24"
+    "karma": "^0.12.24",
+    "karma-jasmine": "^0.2.3",
+    "karma-phantomjs-launcher": "^0.1.4"
   },
   "devDependencies": {
     "grunt": "^0.4.1",
