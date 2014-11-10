@@ -1,7 +1,8 @@
 {
   "name": "droughtio",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "author": "Theo Pak, Altan Gulen",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git://github.com/theopak/drought.io.git"
