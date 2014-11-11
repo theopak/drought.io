@@ -10,13 +10,54 @@
 angular.module('droughtioApp')
   .controller('MainCtrl', function ($scope, $http) {
 
-    $scope.data = '';
+    //$scope.data = [10, 20, 30, 40, 60, 80, 20, 50];
+    // Settings for angularCharts
+    $scope.config = {
+      title: 'Products', // chart title
+      tooltips: true,
+      labels: false, // labels on data points
+      // exposed events 
+      mouseover: function() {}, 
+      mouseout: function() {},
+      click: function() {},
+      // legend config
+      legend: {
+        display: true,
+        position: 'left',  // can be either 'left' or 'right'.
+        htmlEnabled: false // you can have html in series name
+      },
+      // override this array if you're not happy with default colors
+      colors: [],
+      innerRadius: 0, // Only on pie Charts
+      lineLegend: 'traditional', // Only on line Charts
+      lineCurveType: 'cardinal', // change this as per d3 guidelines to avoid smoothline
+      isAnimate: true, // run animations while rendering chart
+      yAxisTickFormat: 's' //refer tickFormats in d3 to edit this value
+    };
+
+    $scope.acData = {
+      series: ['Sales', 'Income', 'Expense', 'Laptops', 'Keyboards'],
+      data: [{
+        x: 'Laptops',
+        y: [100, 500, 0],
+        tooltip: 'this is tooltip'
+      }, {
+        x: 'Desktops',
+        y: [300, 100, 100]
+      }, {
+        x: 'Mobiles',
+        y: [351]
+      }, {
+        x: 'Tablets',
+        y: [54, 0, 879]
+      }]
+    };
 
     // helper for reformatting the NOAA API response into a form we can pass to D3
     var reformatNormalsResponse = function (data) {
       
       // debug
-      console.log(data);
+      //console.log(data);
 
       // Adapter
       var formattedData = [];
@@ -48,7 +89,6 @@ angular.module('droughtioApp')
       success(function (data) {
         // attach this data to the scope
         //$scope.data = reformatNormalsResponse(data);
-        $scope.data = reformatNormalsResponse(data);
 
         // clear the error messages
         $scope.error = '';
