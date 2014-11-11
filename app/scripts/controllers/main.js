@@ -12,24 +12,19 @@ angular.module('droughtioApp')
 
     //$scope.data = [10, 20, 30, 40, 60, 80, 20, 50];
     // Settings for angularCharts
+    $scope.chartType = 'line';
     $scope.config = {
-      title: 'Products', // chart title
+      //title: 'Test', // chart title
       tooltips: true,
       labels: false, // labels on data points
-      // exposed events 
-      mouseover: function() {}, 
-      mouseout: function() {},
-      click: function() {},
       // legend config
       legend: {
         display: true,
-        position: 'left',  // can be either 'left' or 'right'.
-        htmlEnabled: false // you can have html in series name
+        position: 'right',  // can be either 'left' or 'right'.
+        htmlEnabled: true // you can have html in series name
       },
-      // override this array if you're not happy with default colors
       colors: [],
-      innerRadius: 0, // Only on pie Charts
-      lineLegend: 'traditional', // Only on line Charts
+      lineLegend: 'traditional', // parameter for 'line' charts
       lineCurveType: 'cardinal', // change this as per d3 guidelines to avoid smoothline
       isAnimate: true, // run animations while rendering chart
       yAxisTickFormat: 's' //refer tickFormats in d3 to edit this value
