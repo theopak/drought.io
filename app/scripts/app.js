@@ -16,7 +16,7 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'angularCharts'
+    'angular-rickshaw'
   ])
   .config(function ($routeProvider) {
     $routeProvider

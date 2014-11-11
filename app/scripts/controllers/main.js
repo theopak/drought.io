@@ -10,54 +10,44 @@
 angular.module('droughtioApp')
   .controller('MainCtrl', function ($scope, $http) {
 
-    //$scope.data = [10, 20, 30, 40, 60, 80, 20, 50];
-    // Settings for angularCharts
-    $scope.chartType = 'line';
-    $scope.config = {
-      //title: 'Test', // chart title
-      tooltips: true,
-      labels: false, // labels on data points
-      // legend config
-      legend: {
-        display: true,
-        position: 'right',  // can be either 'left' or 'right'.
-        htmlEnabled: true // you can have html in series name
-      },
-      colors: [],
-      lineLegend: 'traditional', // parameter for 'line' charts
-      lineCurveType: 'cardinal', // change this as per d3 guidelines to avoid smoothline
-      isAnimate: true, // run animations while rendering chart
-      yAxisTickFormat: 's' //refer tickFormats in d3 to edit this value
+    $scope.chartOptions = {
+       renderer: 'area'
     };
-
-    $scope.acData = {
-      series: ['Sales', 'Income', 'Expense', 'Laptops', 'Keyboards'],
-      data: [{
-        x: 'Laptops',
-        y: [100, 500, 0],
-        tooltip: 'this is tooltip'
-      }, {
-        x: 'Desktops',
-        y: [300, 100, 100]
-      }, {
-        x: 'Mobiles',
-        y: [351]
-      }, {
-        x: 'Tablets',
-        y: [54, 0, 879]
-      }]
+    $scope.chartFeatures = {
+      hover: {
+        xFormatter: function(x) {
+          return 't=' + x;
+        },
+        yFormatter: function(y) {
+          return '$' + y;
+        }
+      }
     };
+    $scope.series = [{
+       name: 'Series 1',
+       color: 'steelblue',
+       data: [{x: 0, y: 23}, {x: 1, y: 15}, {x: 2, y: 79}, {x: 3, y: 31}, {x: 4, y: 60}]
+     }, {
+       name: 'Series 2',
+       color: 'lightblue',
+       data: [{x: 0, y: 30}, {x: 1, y: 20}, {x: 2, y: 64}, {x: 3, y: 50}, {x: 4, y: 15}]
+     }];
 
     // helper for reformatting the NOAA API response into a form we can pass to D3
     var reformatNormalsResponse = function (data) {
       
       // debug
-      //console.log(data);
+      console.log(data);
 
       // Adapter
       var formattedData = [];
+      var count = 0;
       angular.forEach(data.results, function(value, key) {
-        formattedData.push(value);
+        console.log('data point:', key, value);
+        formattedData.push({
+          x: value.date,
+          y: count += value.value
+        });
       });
       console.log(formattedData);
 
@@ -83,7 +73,8 @@ angular.module('droughtioApp')
       }).
       success(function (data) {
         // attach this data to the scope
-        //$scope.data = reformatNormalsResponse(data);
+        $scope.acData.series = data.results[0].station;
+        $scope.acData.data = reformatNormalsResponse(data);
 
         // clear the error messages
         $scope.error = '';
