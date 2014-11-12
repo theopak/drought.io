@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('droughtioApp')
-.directive('d3Bars', ['$window', '$timeout', 'd3Service', 
+app.directive('d3Bars', ['$window', '$timeout', 'd3Service', 
   function($window, $timeout, d3Service) {
     return {
       restrict: 'A',
@@ -11,37 +10,38 @@ angular.module('droughtioApp')
         onClick: '&'
       },
       link: function(scope, ele, attrs) {
+        console.log('!!!');
         d3Service.d3().then(function(d3) {
- 
+
           var renderTimeout;
           var margin = parseInt(attrs.margin) || 20,
               barHeight = parseInt(attrs.barHeight) || 20,
               barPadding = parseInt(attrs.barPadding) || 5;
- 
+
           var svg = d3.select(ele[0])
             .append('svg')
             .style('width', '100%');
- 
+
           $window.onresize = function() {
             scope.$apply();
           };
- 
+
           scope.$watch(function() {
             return angular.element($window)[0].innerWidth;
           }, function() {
             scope.render(scope.data);
           });
- 
+
           scope.$watch('data', function(newData) {
             scope.render(newData);
           }, true);
- 
+
           scope.render = function(data) {
             svg.selectAll('*').remove();
- 
+
             if (!data) return;
             if (renderTimeout) clearTimeout(renderTimeout);
- 
+
             renderTimeout = $timeout(function() {
               var width = d3.select(ele[0])[0][0].offsetWidth - margin,
                   height = scope.data.length * (barHeight + barPadding),
@@ -51,9 +51,9 @@ angular.module('droughtioApp')
                       return d.score;
                     })])
                     .range([0, width]);
- 
+
               svg.attr('height', height);
- 
+
               svg.selectAll('rect')
                 .data(data)
                 .enter()

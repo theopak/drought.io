@@ -1,10 +1,13 @@
-angular.module('myd3', [])
-.factory('d3Service', ['$document', '$window', '$q', '$rootScope',
+'use strict';
+
+// https://gist.github.com/auser/6506865#file-d3-example1-js
+//angular.module('droughtioApp')
+app.factory('d3Service', ['$document', '$window', '$q', '$rootScope',
   function($document, $window, $q, $rootScope) {
-    var d = $q.defer(),
-        d3service = {
-          d3: function() { return d.promise; }
-        };
+    var d = $q.defer();
+    var d3service = {
+      d3: function() { return d.promise; }
+    };
   function onScriptLoad() {
     // Load client in the browser
     $rootScope.$apply(function() { d.resolve($window.d3); });
@@ -14,8 +17,10 @@ angular.module('myd3', [])
   scriptTag.async = true;
   scriptTag.src = 'http://d3js.org/d3.v3.min.js';
   scriptTag.onreadystatechange = function () {
-    if (this.readyState == 'complete') onScriptLoad();
-  }
+    if (this.readyState === 'complete') { 
+      onScriptLoad();
+    }
+  };
   scriptTag.onload = onScriptLoad;
  
   var s = $document[0].getElementsByTagName('body')[0];

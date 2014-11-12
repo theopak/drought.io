@@ -16,8 +16,7 @@ var app = angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'angular-rickshaw',
-    'd3'
+    'angular-rickshaw'
   ])
   .config(function ($routeProvider) {
     $routeProvider
