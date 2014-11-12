@@ -7,8 +7,7 @@
  * # MainCtrl
  * Controller of the droughtioApp
  */
-angular.module('droughtioApp')  
-  .controller('MainCtrl', function ($scope, $http) {
+app.controller('MainCtrl', function ($scope, $http) {
 
     $scope.zip = '12180';
 
