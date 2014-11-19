@@ -1,18 +1,18 @@
 'use strict';
 
-app.directive('droughtMap', ['$window', '$timeout', 'd3Service', 'topoJsonService',
-  function($window, $timeout, d3Service, topoJsonService) {
+app.directive('droughtMap', ['d3Service',
+  function (d3Service) {
     return {
-      restrict: 'A',
+      restrict: 'AE',
+      replace: true,
       scope: {
         data: '=',
         label: '@',
         onClick: '&'
       },
-      link: function(scope, ele, attrs) {
+      link: function (scope, element, attrs) {
         console.log('inside drought map!!!');
-        d3Service.d3().then(function(d3) {
-          topoJsonService.topoJson().then(function(topoJson) {        
+        d3Service.d3().then(function(d3) {      
             var width = 960,
                 height = 500;
 
@@ -22,17 +22,17 @@ app.directive('droughtMap', ['$window', '$timeout', 'd3Service', 'topoJsonServic
                 .attr('width', width)
                 .attr('height', height);
 
-            d3.json('./us.json', function(error, topology) {
+            d3.json('../us.json', function(error, topology) {
+              console.log(topojson);
               svg.selectAll('path')
-                .data(topoJson.feature(topology, topology.objects.counties).features)
+                .data(topojson.feature(topology, topology.objects.counties).features)
                 .enter().append('path')
                 .attr('d', path)
                 .on('mouseover', function(data) {                  
-                  //Identify county ID
+                  // Identify county ID
                   var countyID = data.id;
                 });
             });
-          });
         });
       }
     };
