@@ -1,4 +1,4 @@
-# [Drought.io](http://www.drought.io) ![build status](https://travis-ci.org/theopak/drought.io.svg)
+# [Drought.io](http://www.drought.io) [![Build Status](https://travis-ci.org/theopak/drought.io.svg?branch=master)](https://travis-ci.org/theopak/drought.io)
 
 _"Better than [drought.gov](htttp://www.drought.gov)!"_ by Theo Pak & Altan Gulen for [Prof. Cutler's CSCI-4960 "Interactive Visualization"](http://www.cs.rpi.edu/~cutler/classes/visualization/F14/index.php) class at RPI.
 
