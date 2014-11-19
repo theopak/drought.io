@@ -22,7 +22,7 @@ app.directive('droughtMap', ['d3Service',
                 .attr('width', width)
                 .attr('height', height);
 
-            d3.json('../us.json', function(error, topology) {
+            d3.json('/assets/us.json', function(error, topology) {
               console.log(topojson);
               svg.selectAll('path')
                 .data(topojson.feature(topology, topology.objects.counties).features)
