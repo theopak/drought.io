@@ -3,4 +3,6 @@ node_modules
 .sass-cache
 bower_components
 
+*.sublime-*
+
 app/scripts/directives/droughtChart.js
