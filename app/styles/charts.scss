@@ -1,3 +1,49 @@
+$fg:     #333;
+$bg:     #fafafa;
+$color1: rgba( 52,  73,  94, 1.0);
+$color2: rgba( 44,  62,  80, 1.0);
+$color3: rgba(149, 165, 166, 1.0);
+$color4: rgba(127, 140, 141, 1.0);
+
+
+body {
+  padding: 0;
+}
+#frame {
+  // position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  // max-height: 100vh;
+  .drawer {
+    height: 0;
+    overflow: hidden;
+    transition: all 250ms ease-out;
+    &.open {
+      height: auto;
+    }
+  }
+}
+#navbar {
+  min-height: 6rem;
+  padding: 2.5rem 2em 1.5rem;
+  background: rgba(255,255,255,0.5);
+  border-bottom: 1px solid $color1;
+  .brand {
+    font: 400 1.5em/3rem 'Montserrat',sans-serif;
+    letter-spacing: -0.03em;
+  }
+  h1 {
+    margin: 1rem 0 0;
+    padding-left: 3rem;
+    background: url(../images/icon.png) no-repeat left;
+  }
+  p {
+    margin: 0;
+    padding-left: 3rem;
+  }
+}
+
 .chart {
   max-width: 100%;
   min-height: 1rem;
@@ -6,13 +52,12 @@
 }
 
 path {
-  fill: rgba(204,204,204,1);
-  stroke: rgba(255,255,255,0.80);
+  fill: $color3;
+  stroke: lighten($color3, 5);
   stroke-width: .5px;
-  transition: opacity 5ms ease-in;
-  opacity: 0.30;
+  transition: all 5ms ease-in;
   &:hover {
-    opacity: 0.95;
+    fill: $color1;
   }
 }
 path {
@@ -32,4 +77,15 @@ path.severity3 {
 }
 path.severity4 {
   fill: #730000;
+}
+
+#map {
+  position: static;
+  top: 0;
+  width: 100%;
+  background: $color4;
+  & > svg {
+    width: 100%;
+    height: 100%;
+  }
 }

@@ -16,13 +16,17 @@ app.directive('droughtMap', ['d3Service',
             // var width = 960,
             //     height = 500;
 
-            var width = window.innerWidth - (window.innerWidth / 3),
-                height = window.innerHeight - 20;
+            var width = window.innerWidth,
+                height = window.innerHeight - $('#navbar').outerHeight(),
+                ratio = window.devicePixelRatio || 1,
+                centered;
 
             var projection = d3.geo.albersUsa()
+                // .clipExtent(90)
+                // .clipExtent([[1, 1], [width - 1, height - 1]])
                 // .translate([50, svgHeight/2 - 95])
                 .translate([width/2, height/2])
-                // .translate([svgWidth*2, svgHeight / 2 + 50])
+                // .translate([svgWidth / 2, svgHeight / 2 + 50])
                 // .scale([4000])
                 // .scale([4000])
                 // .rotate([123,0]);
@@ -41,17 +45,45 @@ app.directive('droughtMap', ['d3Service',
                 .on('zoom', zoomed);
 
             var g = svg.append('g')
-                .call(zoom);
+            //     .call(zoom);
 
-            g.append("rect")
-                .attr("class", "background")
-                .attr("width", width)
-                .attr("height", height);
+            // g.append('rect')
+            //   .attr('class', 'background')
+            //   .attr('width', width)
+            //   .attr('height', height)
+            //   .on('click', clicked);
 
+            // var trim = d3.geom.polygon([[0,0], [0,height], [width,height], [width,0]])
+            //   .clip(projection);
 
             function zoomed() {
               projection.translate(d3.event.translate).scale(d3.event.scale);
               g.selectAll('path').attr('d', path);
+            }
+
+            function clicked(d) {
+              var x, y, k;
+
+              if (d && centered !== d) {
+                var centroid = path.centroid(d);
+                x = centroid[0];
+                y = centroid[1];
+                k = 4;
+                centered = d;
+              } else {
+                x = width / 2;
+                y = height / 2;
+                k = 1;
+                centered = null;
+              }
+
+              g.selectAll('path')
+                .classed('active', centered && function(d) { return d === centered; });
+
+              g.transition()
+                .duration(750)
+                .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')scale(' + k + ')translate(' + -x + ',' + -y + ')')
+                .style('stroke-width', 1.5 / k + 'px');
             }
 
             d3.json('/assets/us.json', function(error, topology) {
@@ -62,6 +94,7 @@ app.directive('droughtMap', ['d3Service',
                   .data(topojson.feature(topology, topology.objects.counties).features)
                 .enter().append('path')
                   .attr('d', path)
+                  .on('click', clicked)
                   .on('mouseover', function(data) {
                     // Identify county ID
                     var countyId = data.id;

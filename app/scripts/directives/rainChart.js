@@ -45,16 +45,16 @@ app.directive('rainChart', ['$compile',
             stack: false,
             palette: 'spectrum14'
           });
-          // var yAxis = new Rickshaw.Graph.Axis.Y({
-          //   graph: graph
-          // });
-          // yAxis.render();
-          // var time = new Rickshaw.Fixtures.Time();
-          // var xAxis = new Rickshaw.Graph.Axis.Time({
-          //   graph: graph,
-          //   timeUnit: time.unit('day')
-          // });
-          // xAxis.render();
+          var yAxis = new Rickshaw.Graph.Axis.Y({
+            graph: graph
+          });
+          yAxis.render();
+          var time = new Rickshaw.Fixtures.Time();
+          var xAxis = new Rickshaw.Graph.Axis.Time({
+            graph: graph,
+            timeUnit: time.unit('day')
+          });
+          xAxis.render();
 
           var legend = new Rickshaw.Graph.Legend({
             graph: graph,

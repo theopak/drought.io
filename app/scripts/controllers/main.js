@@ -36,11 +36,17 @@ app.controller('MainCtrl', ['$scope', '$http', 'RainfallSeriesProvider',
 
     // Seed the chart
     $scope.year = 2010;
+    // var seriesData = [ [], [], [], [], [], [], [], [], [] ];
+    // var random = new Rickshaw.Fixtures.RandomData(150);
+    // for (var i = 0; i < 150; i++) {
+    //   random.addData(seriesData);
+    // }
+
     $scope.rainfallSeriesCollection = [];
-    $scope.rainfallSeriesCollection.push({
-    	name: 'dumb',
-    	data: [{x: Date.parse('2010-04-17T00:00:00'), y: 38}]
-    });
+    // $scope.rainfallSeriesCollection.push({
+    //   name: 'dumb',
+    //   data: seriesData[0]
+    // });
     // $scope.rainfallSeriesCollection.push({
     //   name: 'Troy, NY',
     //   color: 'orange',
@@ -566,36 +572,59 @@ app.controller('MainCtrl', ['$scope', '$http', 'RainfallSeriesProvider',
     // });
     // graph.render();
 
+    $scope.appendSeries = function(locationid, year, color) {
+      var d = RainfallSeriesProvider.get({
+        startdate: year + '-01-01',
+        enddate: year + '-12-31',
+        locationid: locationid
+      });
+      console.log('!!! ' + color + ' !!!', d);
+      $scope.renderers = [
+        'line',
+        'bar',
+        'scatterplot',
+        'area'
+      ];
+      $scope.renderer = 'scatterplot';
+      $scope.year = year;
+      $scope.rainfallSeriesCollection.push({
+        name: locationid,
+        color: color,
+        data: d
+      });
+    };
+
     // Get specified location's monthly normal precipitation data and attach it to the scope.
     var palette = new Rickshaw.Color.Palette({scheme: 'spectrum14'});
-    RainfallSeriesProvider.get({
-      startdate: $scope.year + '-01-01',
-      enddate: $scope.year + '-12-31',
-      // locationid: 'CNTY:40109'
-      locationid: 'ZIP:12180'
-    },
-    function (data) {
-    	$scope.renderers = [
-    	  'line',
-    	  'bar',
-    	  'scatterplot',
-    	  'area'
-    	];
-    	$scope.renderer = 'line';
-      $scope.year = 2010;
-      // while ($scope.rainfallSeriesCollection.length > 0) {
-      //   $scope.rainfallSeriesCollection.pop();
-      // }
-      $scope.rainfallSeriesCollection.push({
-        name: 'Troy this is the one',
-        color: palette.color(),
-        data: data
-      });
-      console.log(data);
-    }, function () {
-      console.log('FAILURE');
-      $scope.year = 2012;
-    });
+    $scope.appendSeries('ZIP:12180', 2009, palette.color());
+    // RainfallSeriesProvider.get({
+    //   startdate: $scope.year + '-01-01',
+    //   enddate: $scope.year + '-12-31',
+    //   locationid: 'CNTY:36111'
+    //   // locationid: 'ZIP:12180'
+    // },
+    // function (data) {
+    //   $scope.renderers = [
+    //     'line',
+    //     'bar',
+    //     'scatterplot',
+    //     'area'
+    //   ];
+    //   $scope.renderer = 'line';
+    //   $scope.year = 2010;
+    //   // while ($scope.rainfallSeriesCollection.length > 0) {
+    //   //   $scope.rainfallSeriesCollection.pop();
+    //   // }
+    //   $scope.rainfallSeriesCollection.push({
+    //     name: 'Troy this is the one',
+    //     color: palette.color(),
+    //     data: data
+    //   });
+    //   console.log(data);
+    // }, function () {
+    //   console.log('FAILURE');
+    //   $scope.year = 2012;
+    // });
 
     $scope.changeSeriesData = function(id) {
         var seriesList = [];

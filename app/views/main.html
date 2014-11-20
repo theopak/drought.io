@@ -1,22 +1,30 @@
-<div class="row marketing">
-  <h4>Map</h4>
-  <drought-map width="500" height="500"></drought-map>
+<div id="frame">
+  <div class="container drawer">
+     <div class="row">
+      <div class="col-sm-12">
+        <h4>{{year}} Cumulative Annual Precipitation for {{zip}}</h4>
+        <select ng-options="renderer for renderer in renderers" 
+                ng-model="renderer">
+        </select>
+        <rain-chart
+          width="700"
+          height="240"
+          series="rainfallSeriesCollection">
+        </rain-chart>
+        <button class="btn btn-primary" ng-click="changeSeriesData(0)">Change series data</button>
+      </div>
+    </div>
+  </div>
+  <div id="navbar">
+    <h1 class="brand">Drought.io</h1>
+    <p><strong>As of November 18, 2014, drought is impacting 70.5 million people in the US.</strong> Click on a location to learn more. Visualization by <a href="https://github.com/theopak/drought.io/">Theo Pak &amp; Altan Gulen</a>. Drop designed by <a href="http://thenounproject.com/term/drop/48086/">Julien Deveaux</a> from the Noun Project.</p>
+  </div>
+</div>
 
-  <h4>{{year}} Cumulative Annual Precipitation for {{zip}}</h4>
-  <select ng-options="renderer for renderer in renderers" 
-          ng-model="renderer">
-  </select>
-  <rain-chart 
-    width="700"
-    height="240"  
-    color="steelblue"
-    renderer="renderer"
-    series="rainfallSeriesCollection">
-  </rain-chart>
-  <button class="btn btn-primary" ng-click="changeSeriesData(0)">Change series data</button>
-  <!--<rickshaw
-    rickshaw-options="chartOptions"
-    rickshaw-features="chartFeatures"
-    rickshaw-series="rainfallSeriesCollection">
-  </rickshaw>-->
+<div class="containger-fluid">
+  <div class="row">
+    <div class="col-xs-12">
+      <div id="map" drought-map></div>
+    </div>
+  </div>
 </div>
