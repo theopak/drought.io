@@ -6,7 +6,30 @@
 }
 
 path {
-  fill: #ccc;
-  stroke: #fff;
+  fill: rgba(204,204,204,1);
+  stroke: rgba(255,255,255,0.80);
   stroke-width: .5px;
+  transition: opacity 5ms ease-in;
+  opacity: 0.30;
+  &:hover {
+    opacity: 0.95;
+  }
+}
+path {
+  opacity: 0.75;
+}
+path.severity0 {
+  fill: #FFFF00;
+}
+path.severity1 {
+  fill: #FCD37F;
+}
+path.severity2 {
+  fill: #FFAA00;
+}
+path.severity3 {
+  fill: #E60000;
+}
+path.severity4 {
+  fill: #730000;
 }
