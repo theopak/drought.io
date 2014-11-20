@@ -3,9 +3,20 @@
   <drought-map width="500" height="500"></drought-map>
 
   <h4>{{year}} Cumulative Annual Precipitation for {{zip}}</h4>
-  <rickshaw
+  <select ng-options="renderer for renderer in renderers" 
+          ng-model="renderer">
+  </select>
+  <rain-chart 
+    width="700"
+    height="240"  
+    color="steelblue"
+    renderer="renderer"
+    series="rainfallSeriesCollection">
+  </rain-chart>
+  <button class="btn btn-primary" ng-click="changeSeriesData(0)">Change series data</button>
+  <!--<rickshaw
     rickshaw-options="chartOptions"
     rickshaw-features="chartFeatures"
-    rickshaw-series="series">
-  </rickshaw>
+    rickshaw-series="rainfallSeriesCollection">
+  </rickshaw>-->
 </div>
