@@ -52,9 +52,6 @@ app.directive('droughtMap', ['d3Service', '$q',
             //   .attr('height', height)
             //   .on('click', clicked);
 
-            // var trim = d3.geom.polygon([[0,0], [0,height], [width,height], [width,0]])
-            //   .clip(projection);
-
             function zoomed() {
               projection.translate(d3.event.translate).scale(d3.event.scale);
               g.selectAll('path').attr('d', path);

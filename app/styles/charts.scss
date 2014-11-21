@@ -8,46 +8,42 @@ $color4: rgba(127, 140, 141, 1.0);
 
 body {
   padding: 0;
-}
-#drawer {
-  // position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 100%;
-  // max-height: 100vh;
   background: $bg;
-  border-top: 1px solid $color1;
-  overflow: hidden;
-  transition: transform 500ms ease-out;
-  // transform: translateY(-80%);
-  z-index: 99;
-  &.open {
-    // transform: translateY(0);
-  }
 }
 #navbar {
   min-height: 6rem;
-  padding: 1.5rem 2em 2.5rem;
+  width: 100%;
+  padding: 1.5rem 0 2.5rem;
+  // background: $bg;
+  border-top: 1px solid $color1;
+  overflow: hidden;
+  transition: transform 500ms ease-out;
+  z-index: 99;
   .brand {
     font: 400 1.5em/3rem 'Montserrat',sans-serif;
     letter-spacing: -0.03em;
   }
   h1 {
-    margin: 1rem 0 0;
+    margin: 1rem 0 0 -3rem;
     padding-left: 3rem;
     background: url(../images/icon.png) no-repeat left;
   }
   p {
     margin: 0;
-    padding-left: 3rem;
+    font-weight: normal;
+    color: $fg;
+    small {
+      font-size: 1em;
+      font-weight: 300;
+      color: lighten($fg, 15);
+    }
   }
 }
 
-.chart {
+#chart {
   max-width: 100%;
   min-height: 1rem;
-  width: 700px;
-  height: 400px;
+  margin-bottom: 6rem;
 }
 
 #map {
@@ -58,6 +54,10 @@ body {
   line-height: 100%;
   background: $color4;
   z-index: 1;
+  .background {
+    background: $color4;
+    color: $color4;
+  }
   & > svg {
     width: 100%;
     // height: 100%;
@@ -68,8 +68,11 @@ path {
   fill: $color3;
   stroke: lighten($color3, 5);
   stroke-width: .5px;
-  transition: opacity 5ms ease-in;
+  transition: opacity 5ms ease-in, color 15ms ease-in;
   &:hover {
+    fill: lighten($color1, 5);
+  }
+  &.active {
     fill: $color1;
   }
 }
