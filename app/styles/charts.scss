@@ -1,5 +1,5 @@
 $fg:     #333;
-$bg:     #fafafa;
+$bg:     rgba(236, 240, 241, 0.5);
 $color1: rgba( 52,  73,  94, 1.0);
 $color2: rgba( 44,  62,  80, 1.0);
 $color3: rgba(149, 165, 166, 1.0);
@@ -9,26 +9,25 @@ $color4: rgba(127, 140, 141, 1.0);
 body {
   padding: 0;
 }
-#frame {
+#drawer {
   // position: absolute;
   top: 0;
   bottom: 0;
   width: 100%;
   // max-height: 100vh;
-  .drawer {
-    height: 0;
-    overflow: hidden;
-    transition: all 250ms ease-out;
-    &.open {
-      height: auto;
-    }
+  background: $bg;
+  border-top: 1px solid $color1;
+  overflow: hidden;
+  transition: transform 500ms ease-out;
+  // transform: translateY(-80%);
+  z-index: 99;
+  &.open {
+    // transform: translateY(0);
   }
 }
 #navbar {
   min-height: 6rem;
-  padding: 2.5rem 2em 1.5rem;
-  background: rgba(255,255,255,0.5);
-  border-bottom: 1px solid $color1;
+  padding: 1.5rem 2em 2.5rem;
   .brand {
     font: 400 1.5em/3rem 'Montserrat',sans-serif;
     letter-spacing: -0.03em;
@@ -51,17 +50,38 @@ body {
   height: 400px;
 }
 
+#map {
+  // position: fixed;
+  top: 0;
+  width: 100%;
+  background: $color4;
+  z-index: 1;
+  & > svg {
+    width: 100%;
+    // height: 100%;
+  }
+}
 path {
   fill: $color3;
   stroke: lighten($color3, 5);
   stroke-width: .5px;
-  transition: all 5ms ease-in;
+  transition: opacity 5ms ease-in;
   &:hover {
     fill: $color1;
   }
 }
+#zones {
+  path               { opacity: 0.95; }
+  &:hover path       { opacity: 0.75; }
+  &:hover path:hover { opacity: 1.00; }
+}
+#counties {
+  path               { opacity: 0.75; }
+  path:hover         { opacity: 0.85; }
+}
+
 path {
-  opacity: 0.75;
+  // opacity: 0.75;
 }
 path.severity0 {
   fill: #FFFF00;
@@ -79,13 +99,3 @@ path.severity4 {
   fill: #730000;
 }
 
-#map {
-  position: static;
-  top: 0;
-  width: 100%;
-  background: $color4;
-  & > svg {
-    width: 100%;
-    height: 100%;
-  }
-}

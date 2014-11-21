@@ -44,9 +44,18 @@ app.factory('RainfallSeriesProvider', ['$resource',
         // transformResponse: reformatNormalsResponse,
         transformResponse: function (data) {
           var accumulation = 0;
+          var lastDay = 0;
           var handle = angular.fromJson(data).results;
           console.log(handle);
           return _.map(handle, function (item) {
+            if(lastDay === 0) {
+              item.date = lastDay;
+            } else if(lastDay == item.date) {
+              console.log('skip ' + item.date);
+              return;
+            } else {
+              lastDay = item.date;
+            }
             return {'x': Date.parse(item.date), 'y': accumulation += item.value};
           });
           // return _.pluck(angular.fromJson(data).results, 'date');

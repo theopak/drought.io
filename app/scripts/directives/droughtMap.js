@@ -1,7 +1,7 @@
 'use strict';
 
-app.directive('droughtMap', ['d3Service',
-  function (d3Service) {
+app.directive('droughtMap', ['d3Service', '$q',
+  function (d3Service, $q) {
     return {
       restrict: 'AE',
       replace: true,
@@ -18,7 +18,6 @@ app.directive('droughtMap', ['d3Service',
 
             var width = window.innerWidth,
                 height = window.innerHeight - $('#navbar').outerHeight(),
-                ratio = window.devicePixelRatio || 1,
                 centered;
 
             var projection = d3.geo.albersUsa()
@@ -45,7 +44,7 @@ app.directive('droughtMap', ['d3Service',
                 .on('zoom', zoomed);
 
             var g = svg.append('g')
-            //     .call(zoom);
+                // .call(zoom);
 
             // g.append('rect')
             //   .attr('class', 'background')
@@ -76,6 +75,7 @@ app.directive('droughtMap', ['d3Service',
                 k = 1;
                 centered = null;
               }
+              console.log(centered);
 
               g.selectAll('path')
                 .classed('active', centered && function(d) { return d === centered; });
@@ -86,8 +86,48 @@ app.directive('droughtMap', ['d3Service',
                 .style('stroke-width', 1.5 / k + 'px');
             }
 
+            // Draw map once all topologies are loaded
+            function drawMap() {
+
+              // Grab the correct paths from the topologies.
+              console.log(usTopology, droughtTopology);
+              var zones = {};
+              for (var key in droughtTopology.objects) {
+                zones = droughtTopology.objects[key];
+                if(typeof(zones) !== 'function') {
+                  break;
+                }
+              }
+
+              // Draw the US paths as the base layer.
+              g.append('g')
+                  .attr('id', 'counties')
+                .selectAll('path')
+                  .data(topojson.feature(topology, usTopology.objects.counties).features)
+                .enter().append('path')
+                  .attr('d', path)
+                  .on('click', clicked)
+                  .on('mouseover', function(data) {
+                    var countyId = data.id;
+                    // console.log(countyId);
+                  });
+
+              // Draw drought severity paths as the top layer
+              var severity = 0;
+              g.append('g')
+                  .attr('id', 'zones')
+                .selectAll('path')
+                  .data(topojson.feature(droughtTopology, zones).features)
+                .enter().append('path')
+                  .attr('d', path)
+                  .on('click', clicked)
+                  .attr('class', function(d) {
+                    console.log(d);
+                    return 'severity' + severity++;
+                  });
+            }
+
             d3.json('/assets/us.json', function(error, topology) {
-              console.log(topojson);
               g.append('g')
                   .attr('id', 'counties')
                 .selectAll('path')
@@ -96,7 +136,6 @@ app.directive('droughtMap', ['d3Service',
                   .attr('d', path)
                   .on('click', clicked)
                   .on('mouseover', function(data) {
-                    // Identify county ID
                     var countyId = data.id;
                     // console.log(countyId);
                   });
@@ -104,27 +143,30 @@ app.directive('droughtMap', ['d3Service',
 
             // Render the zones of drought severity
             // d3.json('/assets/california-drought-topo.json', function(error, topology) {
-            // // d3.json('/assets/USDM_20141111-topo.json', function(error, topology) {
-            //   // Get the first object of data in the file.
-            //   // console.log(topology);
-            //   var first = {};
-            //   for (var key in topology.objects) {
-            //     first = topology.objects[key];
-            //     if(typeof(first) !== 'function') {
-            //       break;
-            //     }
-            //   }
-            //   // Draw paths into the DOM.
-            //   svg.selectAll('path')
-            //     .data(topojson.feature(topology, first).features)
-            //     .enter()
-            //     .append('path')
-            //     .attr('d', path)
-            //     .attr('class', function(d) {
-            //       console.log(d);
-            //       return 'severity' + d.id;
-            //     });
-            // });
+            d3.json('/assets/USDM_20141111-topo.json', function(error, topology) {
+              // Get the first object of data in the file.
+              console.log(topology);
+              var first = {};
+              for (var key in topology.objects) {
+                first = topology.objects[key];
+                if(typeof(first) !== 'function') {
+                  break;
+                }
+              }
+              // Draw paths into the DOM.
+              var severity = 0;
+              g.append('g')
+                  .attr('id', 'zones')
+                .selectAll('path')
+                  .data(topojson.feature(topology, first).features)
+                .enter().append('path')
+                  .attr('d', path)
+                  .on('click', clicked)
+                  .attr('class', function(d) {
+                    console.log(d);
+                    return 'severity' + severity++;
+                  });
+            });
         });
       }
     };
