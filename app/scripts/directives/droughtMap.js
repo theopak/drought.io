@@ -17,7 +17,7 @@ app.directive('droughtMap', ['d3Service', '$q',
             //     height = 500;
 
             var width = window.innerWidth,
-                height = window.innerHeight - $('#navbar').outerHeight(),
+                height = (window.innerHeight - $('#navbar').outerHeight()) * 0.75,
                 centered;
 
             var projection = d3.geo.albersUsa()
@@ -126,14 +126,14 @@ app.directive('droughtMap', ['d3Service', '$q',
 
             d3.json('/assets/us.json', function(error, topology) {
               g.append('g')
-                  .attr('id', 'counties')
+                  .attr('id', 'states')
                 .selectAll('path')
-                  .data(topojson.feature(topology, topology.objects.counties).features)
+                  .data(topojson.feature(topology, topology.objects.states).features)
                 .enter().append('path')
                   .attr('d', path)
                   .on('click', clicked)
                   .on('mouseover', function(data) {
-                    var countyId = data.id;
+                    //var countyId = data.id;
                     // console.log(countyId);
                   });
             });
