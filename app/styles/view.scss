@@ -1,8 +1,8 @@
-$color-bg:        rgba(236, 240, 241, 1.0); // Porcelain
+$color-bg:        rgba(236, 236, 236, 1.0); // White Smoke
 $color-fg:        #333;                     // Black
-$color-viz-bg:    rgba(189, 195, 199, 1.0); // Silver Sand
-$color-viz-base:  rgba(218, 223, 225, 1.0); // Iron
-$color-viz-line:  rgba(236, 236, 236, 1.0); // White Smoke
+$color-viz-bg:    rgba(210, 215, 211, 1.0); // Pumice
+$color-viz-base:  rgba(191, 191, 191, 1.0); // Silver
+$color-viz-line:  rgba(242, 241, 239, 1.0); // Carrara
 $color-viz-focus: rgba(108, 122, 137, 1.0); // Lynch
 
 
@@ -22,13 +22,18 @@ body {
   transition: transform 500ms ease-out;
   z-index: 99;
   .brand {
-    font: 400 1.5em/3rem 'Montserrat',sans-serif;
+    margin-bottom: -0.25rem;
+    font: 400 1.5em/4rem 'Montserrat','Proxima Nova',Arial,sans-serif;
     letter-spacing: -0.03em;
   }
   h1 {
-    margin: 1rem 0 0 -3rem;
-    padding-left: 3rem;
+    margin: 1rem 0 0 -40px;
+    padding-left: 40px - 1px;
     background: url(../images/icon.png) no-repeat left;
+    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) { 
+      background-image: url(../images/icon@2x.png);
+      background-size: 48px 48px;
+    }
   }
   p {
     margin: 0;
@@ -94,11 +99,11 @@ path.graticule {
   path.severity2 { fill: #FFAA00; }
   path.severity3 { fill: #E60000; }
   path.severity4 { fill: #730000; }
-  path               { opacity: 0.95; }
+  path               { opacity: 1.00; }
   &:hover path       { opacity: 0.75; }
   &:hover path:hover { opacity: 1.00; }
 }
 #states {
-  path               { opacity: 0.15; }
+  path               { opacity: 0.10; }
   path:hover         { opacity: 0.85; }
 }
