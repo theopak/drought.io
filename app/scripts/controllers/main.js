@@ -603,7 +603,7 @@ app.controller('MainCtrl', ['$scope', '$http', 'RainfallSeriesProvider',
 
     // Get specified location's monthly normal precipitation data and attach it to the scope.
     var palette = new Rickshaw.Color.Palette({scheme: 'spectrum14'});
-    $scope.appendSeries('ZIP:12180', 2012, palette.color());
+    // $scope.appendSeries('ZIP:12180', 2012, palette.color());
     // RainfallSeriesProvider.get({
     //   startdate: $scope.year + '-01-01',
     //   enddate: $scope.year + '-12-31',

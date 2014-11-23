@@ -12,34 +12,36 @@ app.directive('droughtMap', ['d3Service', '$q',
       },
       link: function (scope, element, attrs) {
         console.log('inside drought map!!!');
-        d3Service.d3().then(function(d3) {      
-            // var width = 960,
-            //     height = 500;
+        d3Service.d3().then(function(d3) {
 
+            // Set size and position
             var width = window.innerWidth,
-                height = (window.innerHeight - $('#navbar').outerHeight()) * 0.75,
-                centered;
+                minHeight = Math.max(window.innerHeight - $('#navbar').outerHeight(), 240),
+                centered,
+                height = minHeight - $('#details').outerHeight() > 240 ? 
+                  minHeight - $('#details').outerHeight() :
+                  minHeight;
 
             var projection = d3.geo.albersUsa()
-                // .clipExtent(90)
-                // .clipExtent([[1, 1], [width - 1, height - 1]])
-                // .translate([50, svgHeight/2 - 95])
-                .translate([width/2, height/2])
-                // .translate([svgWidth / 2, svgHeight / 2 + 50])
-                // .scale([4000])
-                // .scale([4000])
-                // .rotate([123,0]);
+              .scale(700)
+              .translate([width / 2, height / 2]);
 
             var path = d3.geo.path()
-                .projection(projection);
+              .projection(projection);
 
             var svg = d3.select(element[0]).append('svg')
-                .attr('width', width)
-                .attr('height', height);
+              .attr('width', width)
+              .attr('height', height);
 
             var g = svg.append('g')
               .on('click', stopped, true);
-                // .call(zoom);
+            
+            // Add graticules
+            // var graticule = d3.geo.graticule();
+            // g.append('path')
+            //     .datum(graticule)
+            //     .attr('class', 'graticule')
+            //     .attr('d', path);
 
             // Add background rectangle
             // g.append('rect')
@@ -55,7 +57,7 @@ app.directive('droughtMap', ['d3Service', '$q',
               .scale(1)
               .scaleExtent([1, 8])
               .on('zoom', zoomed);
-            svg
+            g
               .call(zoom) // delete this line to disable free zooming
               .call(zoom.event);
 
@@ -139,12 +141,18 @@ app.directive('droughtMap', ['d3Service', '$q',
                   });
             }
 
+            // Draw the US
             d3.json('/assets/us.json', function(error, topology) {
+              // g.append('path')
+              //   .datum(topojson.merge(topology, topology.objects.states.geometries))
+              //   .attr('class', 'land')
+              //   .attr('d', path);
               g.append('g')
                   .attr('id', 'states')
                 .selectAll('path')
                   .data(topojson.feature(topology, topology.objects.states).features)
                 .enter().append('path')
+                  .attr('class', 'administrative')
                   .attr('d', path)
                   .on('click', clicked)
                   .on('mouseover', function(data) {
@@ -153,11 +161,10 @@ app.directive('droughtMap', ['d3Service', '$q',
                   });
             });
 
-            // Render the zones of drought severity
+            // Draw the zones of drought severity
             // d3.json('/assets/california-drought-topo.json', function(error, topology) {
             d3.json('/assets/USDM_20141111-topo.json', function(error, topology) {
               // Get the first object of data in the file.
-              console.log(topology);
               var first = {};
               for (var key in topology.objects) {
                 first = topology.objects[key];
@@ -172,6 +179,7 @@ app.directive('droughtMap', ['d3Service', '$q',
                 .selectAll('path')
                   .data(topojson.feature(topology, first).features)
                 .enter().append('path')
+                  .attr('class', 'zone')
                   .attr('d', path)
                   .on('click', clicked)
                   .attr('class', function(d) {

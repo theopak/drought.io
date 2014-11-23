@@ -1,21 +1,23 @@
-$fg:     #333;
-$bg:     rgba(236, 240, 241, 0.5);
-$color1: rgba( 52,  73,  94, 1.0);
-$color2: rgba( 44,  62,  80, 1.0);
-$color3: rgba(149, 165, 166, 1.0);
-$color4: rgba(127, 140, 141, 1.0);
+$color-bg:        rgba(236, 240, 241, 1.0); // Porcelain
+$color-fg:        #333;                     // Black
+$color-viz-bg:    rgba(189, 195, 199, 1.0); // Silver Sand
+$color-viz-base:  rgba(218, 223, 225, 1.0); // Iron
+$color-viz-line:  rgba(236, 236, 236, 1.0); // White Smoke
+$color-viz-focus: rgba(108, 122, 137, 1.0); // Lynch
 
 
 body {
   padding: 0;
-  background: $bg;
+  background: $color-viz-bg;
+}
+#navbar, #details {
+  background: $color-bg;
 }
 #navbar {
   min-height: 6rem;
   width: 100%;
-  padding: 1.5rem 0 2.5rem;
-  // background: $bg;
-  border-top: 1px solid $color1;
+  padding: 1.5rem 0 2rem;
+  border-top: 1px solid $color-viz-focus;
   overflow: hidden;
   transition: transform 500ms ease-out;
   z-index: 99;
@@ -31,19 +33,21 @@ body {
   p {
     margin: 0;
     font-weight: normal;
-    color: $fg;
+    color: $color-fg;
     small {
       font-size: 1em;
       font-weight: 300;
-      color: lighten($fg, 15);
+      color: lighten($color-fg, 15);
     }
   }
 }
 
 #chart {
-  max-width: 100%;
-  min-height: 1rem;
   margin-bottom: 6rem;
+  overflow: hidden;
+  & > svg {
+    max-width: 100%;
+  }
 }
 
 #map {
@@ -52,11 +56,11 @@ body {
   width: 100%;
   font-size: 0;
   line-height: 100%;
-  background: $color4;
+  background: $color-viz-bg;
   z-index: 1;
   .background {
-    background: $color4;
-    color: $color4;
+    background: $color-viz-bg;
+    color: $color-viz-bg;
   }
   & > svg {
     width: 100%;
@@ -64,44 +68,37 @@ body {
     line-height: 100%;
   }
 }
-path {
-  fill: $color3;
-  stroke: lighten($color3, 5);
-  stroke-width: .5px;
-  transition: opacity 5ms ease-in, color 15ms ease-in;
+path.administrative, path.zone {
+  fill: $color-viz-focus;
+  stroke: $color-viz-line;
+  stroke-width: 1px;
+  opacity: 0;
+  transition: opacity 5ms ease-in;
   &:hover {
-    fill: lighten($color1, 5);
+    opacity: 0.9;
   }
   &.active {
-    fill: $color1;
+    fill: $color-viz-focus;
   }
 }
+path.graticule {
+  fill: none;
+  stroke: darken($color-viz-bg, 5);
+  stroke-width: 1px;
+  stroke-opacity: 0.5;
+}
 #zones {
+  stroke-width: 0.5px;
+  path.severity0 { fill: #FFFF00; }
+  path.severity1 { fill: #FCD37F; }
+  path.severity2 { fill: #FFAA00; }
+  path.severity3 { fill: #E60000; }
+  path.severity4 { fill: #730000; }
   path               { opacity: 0.95; }
   &:hover path       { opacity: 0.75; }
   &:hover path:hover { opacity: 1.00; }
 }
 #states {
-  path               { opacity: 0.75; }
+  path               { opacity: 0.15; }
   path:hover         { opacity: 0.85; }
 }
-
-path {
-  // opacity: 0.75;
-}
-path.severity0 {
-  fill: #FFFF00;
-}
-path.severity1 {
-  fill: #FCD37F;
-}
-path.severity2 {
-  fill: #FFAA00;
-}
-path.severity3 {
-  fill: #E60000;
-}
-path.severity4 {
-  fill: #730000;
-}
-

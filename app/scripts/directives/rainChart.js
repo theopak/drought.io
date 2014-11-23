@@ -32,8 +32,8 @@ app.directive('rainChart', ['$compile',
           // Setup graph with options
           var graph = new Rickshaw.Graph({
             element: element[0],
-            width: attributes.width,
-            height: attributes.height,
+            width: attributes.width < window.innerWidth ? window.innerWidth : attributes.width,
+            height: attributes.height < window.innerHeight ? attributes.height : window.innerHeight,
             series: scope.series,
             renderer: scope.renderer,
             interpolation: 'step-after',

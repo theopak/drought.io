@@ -1,13 +1,25 @@
-# [Drought.io](http://www.drought.io) [![Build Status](https://travis-ci.org/theopak/drought.io.svg?branch=master)](https://travis-ci.org/theopak/drought.io)
+# Drought.io [![Build Status](https://travis-ci.org/theopak/drought.io.svg?branch=master)](https://travis-ci.org/theopak/drought.io)
 
-_"Better than [drought.gov](htttp://www.drought.gov)!"_ by Theo Pak & Altan Gulen for [Prof. Cutler's CSCI-4960 "Interactive Visualization"](http://www.cs.rpi.edu/~cutler/classes/visualization/F14/index.php) class at RPI.
+[Drought.io](http://www.droght.io) is an interactive visualization of drought in the US, the rainfall patterns that lead to it, and the affect it has on agriculture. It was made by Theo Pak & Altan Gulen.
 
 ![screenshot](screenshot.png)
 
-The interactive visualization is designed for general populations in areas indirectly affected by droughts. Surprise! It turns out that everyone is indirectly affected when prolonged droughts affect critical industries like agriculture. Meteorologists, geoscientists, and visualization geeks may also appreciate the demonstration of an approach for visualizing this information in a way that general audiences understand better than current drought visualizations.
 
-What parts of the world are facing droughts, and exactly how big are those areas? How does historical rainfall data indicate a drought, and how can drought forecasts be explained using rainfall forecasts? This visualization should be a graphical layer over other GIS data such as arable lands.
+## Development Notes
 
-We hypothesize that because: (a) a significant decrease in rainfall year over year will result in a drought for the corresponding geographic area; and (b) rainfall can be predicted and visualized in a way that general audiences find easy to understand; then (c) the emergence, continuation, and end of droughts can be predicted and visualized in a way that general audiences find easy to understand.
+- Mapping
+  - [_Let’s Make a Map_, by Mike Bostock](http://bost.ocks.org/mike/map/)
+  - [_Interactive Map with D3.js](http://www.tnoda.com/blog/2013-12-07)
+  - Data Source: http://droughtmonitor.unl.edu/MapsAndData/GISData.aspx
+  - Shapefile-to-TopoJSON Conversion Tool: http://www.mapshaper.org
+- D3.js charts: [_Let’s Make a Bar Chart, Parts 1-3_, by Mike Bostock](http://bost.ocks.org/mike/bar/)
+- Deploying: refer to https://devcenter.heroku.com/articles/getting-started-with-nodejs#prepare-the-app
 
-We will know if the visualization effectively communicates the way that droughts affect people if the user learns something about areas that are currently experiencing a drought (or are at risk to experience a drought in the near future) and about the reasons that such areas affect the user personally.
+
+## References & Inspirations
+
+1. [Prof. Cutler's CSCI-4960 "Interactive Visualization"](http://www.cs.rpi.edu/~cutler/classes/visualization/F14/index.php)
+2. http://www.drought.gov
+3. http://www.nytimes.com/interactive/2012/08/24/us/drought-crops.html
+4. http://www.nytimes.com/interactive/2014/upshot/mapping-the-spread-of-drought-across-the-us.html
+5. http://earth.nullschool.net
