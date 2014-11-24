@@ -78,7 +78,7 @@ path.administrative, path.zone {
   stroke: $color-viz-line;
   stroke-width: 1px;
   opacity: 0;
-  transition: opacity 5ms ease-in;
+  transition: opacity 5ms ease-in, color 15ms ease-in-out;
   &:hover {
     opacity: 0.9;
   }

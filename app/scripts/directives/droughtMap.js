@@ -181,7 +181,6 @@ app.directive('droughtMap', ['d3Service', '$q',
                 .enter().append('path')
                   .attr('class', 'zone')
                   .attr('d', path)
-                  .on('click', clicked)
                   .attr('class', function(d) {
                     console.log(d);
                     return 'severity' + severity++;
