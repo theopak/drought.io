@@ -104,7 +104,7 @@ app.directive('droughtMap', ['d3Service', '$q',
             function drawMap() {
 
               // Grab the correct paths from the topologies.
-              console.log(usTopology, droughtTopology);
+              // console.log(usTopology, droughtTopology);
               var zones = {};
               for (var key in droughtTopology.objects) {
                 zones = droughtTopology.objects[key];
@@ -136,7 +136,7 @@ app.directive('droughtMap', ['d3Service', '$q',
                   .attr('d', path)
                   .on('click', clicked)
                   .attr('class', function(d) {
-                    console.log(d);
+                    // console.log(d);
                     return 'severity' + severity++;
                   });
             }
@@ -182,7 +182,7 @@ app.directive('droughtMap', ['d3Service', '$q',
                   .attr('class', 'zone')
                   .attr('d', path)
                   .attr('class', function(d) {
-                    console.log(d);
+                    // console.log(d);
                     return 'severity' + severity++;
                   });
             });

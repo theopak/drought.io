@@ -520,8 +520,8 @@ app.controller('MainCtrl', ['$scope', '$http', 'RainfallSeriesProvider',
         {x: convert('2012-12-30'), y: 15746}
       ]
     };
-    var labels = _.pluck(seedData.data, 'x');
-    labels.unshift('x');
+    var dateStrings = _.pluck(seedData.data, 'x');
+    dateStrings.unshift('time');
     var testSeries = _.pluck(seedData.data, 'y');
     testSeries.unshift('testSeries');
     // console.log(labels, testSeries);
@@ -534,7 +534,7 @@ app.controller('MainCtrl', ['$scope', '$http', 'RainfallSeriesProvider',
         locationid: locationid
       },
       function(data) {
-        // console.log('!!!', data);
+        console.log('droughtioApp.controller:MainCtrl:$scope.appendSeries:data', data);
         $scope.year = year;
         data.unshift(locationid.toString());
         chart.load({columns: [data]});
@@ -554,14 +554,9 @@ app.controller('MainCtrl', ['$scope', '$http', 'RainfallSeriesProvider',
     $scope.config = {
       bindto: '#chart',
       data: {
-        x: 'x',
-        // xFormat: '%Y%m%d', // 'xFormat' can be used as custom format of 'x'
+        x: 'time',
         columns: [
-          // ['x', '2013-01-01', '2013-01-02', '2013-01-03', '2013-01-04', '2013-01-05', '2013-01-06'],
-          // // ['x', '20130101', '20130102', '20130103', '20130104', '20130105', '20130106'],
-          // ['data1', 30, 200, 100, 400, 150, 250],
-          // ['data2', 130, 340, 200, 500, 250, 350]
-          labels,
+          dateStrings,
           testSeries
         ]
       },
@@ -574,15 +569,13 @@ app.controller('MainCtrl', ['$scope', '$http', 'RainfallSeriesProvider',
           }
         }
       },
-      legend: {
-        position: 'right'
-      },
+      legend: { position: 'right' },
       type: 'area-step'
     };
 
     // C3 chart
     var chart = c3.generate($scope.config);
-    $scope.appendSeries('ZIP:12180', 2012);
+    // $scope.appendSeries('ZIP:12180', 2012);
 
   }
 ]);
