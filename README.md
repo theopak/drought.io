@@ -9,7 +9,7 @@
 
 - Mapping
   - [_Let’s Make a Map_, by Mike Bostock](http://bost.ocks.org/mike/map/)
-  - [_Interactive Map with D3.js](http://www.tnoda.com/blog/2013-12-07)
+  - [_Interactive Map with D3.js_, by Mike Bostock](http://www.tnoda.com/blog/2013-12-07)
   - Data Source: http://droughtmonitor.unl.edu/MapsAndData/GISData.aspx
   - Shapefile-to-TopoJSON Conversion Tool: http://www.mapshaper.org
 - D3.js charts: [_Let’s Make a Bar Chart, Parts 1-3_, by Mike Bostock](http://bost.ocks.org/mike/bar/)
@@ -23,3 +23,4 @@
 3. http://www.nytimes.com/interactive/2012/08/24/us/drought-crops.html
 4. http://www.nytimes.com/interactive/2014/upshot/mapping-the-spread-of-drought-across-the-us.html
 5. http://earth.nullschool.net
+6. _Interactive Technologies : Information Visualization : Perception for Design (3rd Edition)_, by Colin Ware

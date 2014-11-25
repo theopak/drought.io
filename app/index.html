@@ -7,8 +7,10 @@
     <meta name="viewport" content="width=device-width">
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/c3/c3.css" />
+    <link rel="stylesheet" href="bower_components/angular-circular-navigation/angular-circular-navigation.css" />
     <!-- endbower -->
-    <link rel="stylesheet" href="bower_components/rickshaw/rickshaw.css">
+    <!-- <link rel="stylesheet" href="bower_components/rickshaw/rickshaw.css"> -->
     <!-- endbuild -->
     <link href='http://fonts.googleapis.com/css?family=Montserrat&amp;text=Drought.io' rel='stylesheet' type='text/css'>
     <!-- build:css(.tmp) styles/main.css -->
@@ -60,7 +62,9 @@
     <script src="bower_components/underscore/underscore.js"></script>
     <script src="bower_components/d3/d3.js"></script>
     <script src="bower_components/topojson/topojson.js"></script>
-    <script src="bower_components/rickshaw/rickshaw.js"></script>
+    <script src="bower_components/c3/c3.js"></script>
+    <script src="bower_components/angular-circular-navigation/angular-circular-navigation.js"></script>
+    <script src="bower_components/angular-chart/angular-chart.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -70,8 +74,9 @@
     <script src="scripts/app.js"></script>
     <script src="scripts/services/RainfallSeriesProvider.js"></script>
     <script src="scripts/services/d3Service.js"></script>
+    <!-- <script src="scripts/services/chartFactory.js"></script> -->
     <script src="scripts/directives/droughtMap.js"></script>
-    <script src="scripts/directives/rainChart.js"></script>
+    <!-- <script src="scripts/directives/rainChart.js"></script> -->
     <script src="scripts/directives/d3Bars.js"></script>
     <script src="scripts/controllers/main.js"></script>
     <!-- endbuild -->

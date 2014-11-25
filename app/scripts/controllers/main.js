@@ -11,52 +11,12 @@
 app.controller('MainCtrl', ['$scope', '$http', 'RainfallSeriesProvider',
   function ($scope, $http, RainfallSeriesProvider) {
 
-    // Configure the directive
-    $scope.chartOptions = {
-      renderer: 'line',
-      interpolation: 'step-after',  // for responsive widths `step-after` looks ok
-      stack: 'false'                // default `true` for stacking graph contexts
-    };
-    $scope.chartFeatures = {
-      palette: 'spectrum14',
-      legend: {
-        toggle: true,
-        highlight: true
-      },
-      hover: {
-        xFormatter: function(x) {
-          var t = new Date(x);
-          return t.toDateString();
-        },
-        yFormatter: function(y) {
-          return y + ' inches (YTD)';
-        }
-      }
-    };
-    $scope.renderers = [
-      'line',
-      'bar',
-      'scatterplot',
-      'area'
-    ];
-    $scope.renderer = 'bar';
 
-    // Seed the chart
-    $scope.year = 2010;
-    // var seriesData = [ [], [], [], [], [], [], [], [], [] ];
-    // var random = new Rickshaw.Fixtures.RandomData(150);
-    // for (var i = 0; i < 150; i++) {
-    //   random.addData(seriesData);
-    // }
-
-    $scope.rainfallSeriesCollection = [];
-    // $scope.rainfallSeriesCollection.push({
-    //   name: 'dumb',
-    //   data: seriesData[0]
-    // });
+    // Debug
     function convert(str) {
-      var d = new Date(str);
-      return d.valueOf() / 1000;
+      // var d = new Date(str);
+      // return d.valueOf() / 1000;
+      return str;
     }
     var seedData = {
       name: 'Troy, NY',
@@ -560,94 +520,69 @@ app.controller('MainCtrl', ['$scope', '$http', 'RainfallSeriesProvider',
         {x: convert('2012-12-30'), y: 15746}
       ]
     };
-    $scope.rainfallSeriesCollection.push(seedData);
+    var labels = _.pluck(seedData.data, 'x');
+    labels.unshift('x');
+    var testSeries = _.pluck(seedData.data, 'y');
+    testSeries.unshift('testSeries');
+    // console.log(labels, testSeries);
 
-    // Chart using Rickshaw.js (extends D3)
-    // var graph = new Rickshaw.Graph( {
-    //   element: document.querySelector("#chart"),
-    //   width: 580,
-    //   height: 250,
-    //   renderer: 'line',
-    //   interpolation: 'step-after',  // for responsive widths `step-after` looks ok
-    //   stack: 'false',               // default `true` for stacking graph contexts
-    //   palette: 'spectrum14',
-    //   legend: {
-    //     toggle: true,
-    //     highlight: true
-    //   },
-    //   series: $scope.series
-    // });
-    // // var axes = new Rickshaw.Graph.Axis.Time({ graph: graph });
-    // var legend = new Rickshaw.Graph.Legend({
-    //   graph: graph,
-    //   element: document.querySelector('#legend')
-    // });
-    // graph.render();
-
-    $scope.appendSeries = function(locationid, year, color) {
+    // Query driver
+    $scope.appendSeries = function(locationid, year) {
       RainfallSeriesProvider.get({
         startdate: year + '-01-01',
         enddate: year + '-12-31',
         locationid: locationid
       },
       function(data) {
-        console.log('!!! ' + color + ' !!!', data);
+        // console.log('!!!', data);
         $scope.year = year;
-        $scope.rainfallSeriesCollection.push({
-          name: locationid,
-          color: color,
-          data: data
-        });
+        data.unshift(locationid.toString());
+        chart.load({columns: [data]});
       });
     };
 
-    // Get specified location's monthly normal precipitation data and attach it to the scope.
-    var palette = new Rickshaw.Color.Palette({scheme: 'spectrum14'});
-    // $scope.appendSeries('ZIP:12180', 2012, palette.color());
-    // RainfallSeriesProvider.get({
-    //   startdate: $scope.year + '-01-01',
-    //   enddate: $scope.year + '-12-31',
-    //   locationid: 'CNTY:36111'
-    //   // locationid: 'ZIP:12180'
-    // },
-    // function (data) {
-    //   $scope.renderers = [
-    //     'line',
-    //     'bar',
-    //     'scatterplot',
-    //     'area'
-    //   ];
-    //   $scope.renderer = 'line';
-    //   $scope.year = 2010;
-    //   // while ($scope.rainfallSeriesCollection.length > 0) {
-    //   //   $scope.rainfallSeriesCollection.pop();
-    //   // }
-    //   $scope.rainfallSeriesCollection.push({
-    //     name: 'Troy this is the one',
-    //     color: palette.color(),
-    //     data: data
-    //   });
-    //   console.log(data);
-    // }, function () {
-    //   console.log('FAILURE');
-    //   $scope.year = 2012;
-    // });
-
-    $scope.changeSeriesData = function(id) {
-        var seriesList = [];
-        for (var i = 0; i < 3; i++) {
-            var series = {
-                name: 'Series ' + (i + 1),
-                data: []
-            };
-            for (var j = 0; j < 10; j++) {
-                series.data.push({x: j, y: Math.random() * 20});
-            }
-            $scope.rainfallSeriesCollection.push(series);
-            // $scope['series' + id] = seriesList;
-        }
-        console.log('$scope.rainfallSeriesCollection', $scope.rainfallSeriesCollection);
+    // Setup
+    $scope.year = 2010;
+    $scope.rainfallSeriesCollection = [];
+    $scope.schema = {
+      x: {
+        type: 'datetime',
+        format: '%Y-%m-%d',
+        name: 'Date'
+      }
     };
+    $scope.config = {
+      bindto: '#chart',
+      data: {
+        x: 'x',
+        // xFormat: '%Y%m%d', // 'xFormat' can be used as custom format of 'x'
+        columns: [
+          // ['x', '2013-01-01', '2013-01-02', '2013-01-03', '2013-01-04', '2013-01-05', '2013-01-06'],
+          // // ['x', '20130101', '20130102', '20130103', '20130104', '20130105', '20130106'],
+          // ['data1', 30, 200, 100, 400, 150, 250],
+          // ['data2', 130, 340, 200, 500, 250, 350]
+          labels,
+          testSeries
+        ]
+      },
+      axis: {
+        x: {
+          type: 'timeseries',
+          tick: {
+            count: 12,
+            format: '%b'  // d3.date.format() specifier. '%b' is abbreviated month, '%B' is full month name.
+          }
+        }
+      },
+      legend: {
+        position: 'right'
+      },
+      type: 'area-step'
+    };
+
+    // C3 chart
+    var chart = c3.generate($scope.config);
+    $scope.appendSeries('ZIP:12180', 2012);
 
   }
 ]);

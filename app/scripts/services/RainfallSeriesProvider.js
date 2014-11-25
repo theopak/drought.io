@@ -46,7 +46,7 @@ app.factory('RainfallSeriesProvider', ['$resource',
           var accumulation = 0;
           var lastDay = 0;
           var handle = angular.fromJson(data).results;
-          console.log(handle);
+          // console.log(handle);
           return _.map(handle, function (item) {
             if(lastDay === 0) {
               item.date = lastDay;
@@ -56,7 +56,7 @@ app.factory('RainfallSeriesProvider', ['$resource',
             } else {
               lastDay = item.date;
             }
-            return {'x': Date.parse(item.date), 'y': accumulation += item.value};
+            return accumulation += item.value;
           });
           // return _.pluck(angular.fromJson(data).results, 'date');
         },
