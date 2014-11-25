@@ -26,6 +26,10 @@ describe('Controller: MainCtrl', function () {
     httpMock.verifyNoOutstandingRequest();
   });
 
+  it('should have a positive test case', function () {
+    expect(true).toBe(true);
+  });
+
   // it('should get data from the NOAA API and attach it to the scope', function () {
   //   httpMock.expectGET('http://www.ncdc.noaa.gov/cdo-web/api/v2/datasets/ANNUAL');
   //   httpMock.flush();
