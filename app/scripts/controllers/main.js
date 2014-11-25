@@ -8,9 +8,8 @@
  * # MainCtrl
  * Controller of the droughtioApp
  */
-app.controller('MainCtrl', ['$scope', '$http', 'RainfallSeriesProvider',
-  function ($scope, $http, RainfallSeriesProvider) {
-
+app.controller('MainCtrl', ['$scope', '$http', 'globalService', 'RainfallSeriesProvider',
+  function ($scope, $http, globalService, RainfallSeriesProvider) {
 
     // Debug
     function convert(str) {
@@ -542,6 +541,7 @@ app.controller('MainCtrl', ['$scope', '$http', 'RainfallSeriesProvider',
     };
 
     // Setup
+    $scope.selectionQueue = [];
     $scope.year = 2010;
     $scope.rainfallSeriesCollection = [];
     $scope.schema = {
@@ -575,7 +575,15 @@ app.controller('MainCtrl', ['$scope', '$http', 'RainfallSeriesProvider',
 
     // C3 chart
     var chart = c3.generate($scope.config);
-    // $scope.appendSeries('ZIP:12180', 2012);
+    $scope.appendSeries('FIPS:12', 2012);
+
+    // Dynamically load new series
+    var grab = function() {
+      var next = 'FIPS:' + globalService.nextSelection().toString().substring(0,2);
+      console.log(next);
+      $scope.appendSeries(next, 2012);
+    };
+    globalService.registerObserverCallback(grab);
 
   }
 ]);

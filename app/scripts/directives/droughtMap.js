@@ -1,13 +1,12 @@
 'use strict';
 
-app.directive('droughtMap', ['d3Service', '$q',
-  function (d3Service, $q) {
+app.directive('droughtMap', ['d3Service', '$q', 'globalService',
+  function (d3Service, $q, globalService) {
     return {
       restrict: 'AE',
       replace: true,
       scope: {
         data: '=',
-        label: '@',
         onClick: '&'
       },
       link: function (scope, element, attrs) {
@@ -154,10 +153,18 @@ app.directive('droughtMap', ['d3Service', '$q',
                 .enter().append('path')
                   .attr('class', 'administrative')
                   .attr('d', path)
-                  .on('click', clicked)
-                  .on('mouseover', function(data) {
-                    //var countyId = data.id;
-                    // console.log(countyId);
+                  .on('click', clicked);
+              g.append('g')
+                  .attr('id', 'counties')
+                .selectAll('path')
+                  .data(topojson.feature(topology, topology.objects.counties).features)
+                .enter().append('path')
+                  .attr('class', 'county')
+                  .attr('d', path)
+                  .on('click', function(data) {
+                    var countyId = data.id;
+                    console.log(countyId);
+                    globalService.queue(countyId);
                   });
             });
 
@@ -186,6 +193,7 @@ app.directive('droughtMap', ['d3Service', '$q',
                     return 'severity' + severity++;
                   });
             });
+
         });
       }
     };

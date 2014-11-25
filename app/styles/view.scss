@@ -86,6 +86,9 @@ path.administrative, path.zone {
     fill: $color-viz-focus;
   }
 }
+path.county {
+  opacity: 0;
+}
 path.graticule {
   fill: none;
   stroke: darken($color-viz-bg, 5);
