@@ -60,6 +60,8 @@ app.directive('droughtMap', ['d3Service', '$q', 'globalService',
               .call(zoom) // delete this line to disable free zooming
               .call(zoom.event);
 
+            var selectedStates = [];
+
             function clicked(d) {
               if (active.node() === this) 
                 return reset();
@@ -153,19 +155,32 @@ app.directive('droughtMap', ['d3Service', '$q', 'globalService',
                 .enter().append('path')
                   .attr('class', 'administrative')
                   .attr('d', path)
-                  .on('click', clicked);
-              g.append('g')
-                  .attr('id', 'counties')
-                .selectAll('path')
-                  .data(topojson.feature(topology, topology.objects.counties).features)
-                .enter().append('path')
-                  .attr('class', 'county')
-                  .attr('d', path)
+                  // .on('click', clicked);
                   .on('click', function(data) {
-                    var countyId = data.id;
-                    console.log(countyId);
-                    globalService.queue(countyId);
+                    var fips = data.id;
+                    if(selectedStates && selectedStates[fips] === true) {
+                      selectedStates[fips] = false;
+                      globalService.deselect(fips);
+                      d3.select(this).attr('class', 'administrative');
+                    } else {
+                      selectedStates[fips] = true;
+                      globalService.select(fips);
+                      d3.select(this).attr('class', 'administrative-selected');
+                    }
+                    console.log(fips);
                   });
+              // g.append('g')
+              //     .attr('id', 'counties')
+              //   .selectAll('path')
+              //     .data(topojson.feature(topology, topology.objects.counties).features)
+              //   .enter().append('path')
+              //     .attr('class', 'county')
+              //     .attr('d', path)
+                  // .on('click', function(data) {
+                  //   var countyId = data.id;
+                  //   console.log(countyId);
+                  //   globalService.queue(countyId);
+                  // });
             });
 
             // Draw the zones of drought severity

@@ -73,18 +73,12 @@ body {
     line-height: 100%;
   }
 }
-path.administrative, path.zone {
+.administrative, .administrative-selected, .zone {
   fill: $color-viz-focus;
   stroke: $color-viz-line;
   stroke-width: 1px;
   opacity: 0;
   transition: opacity 5ms ease-in, color 15ms ease-in-out;
-  &:hover {
-    opacity: 0.9;
-  }
-  &.active {
-    fill: $color-viz-focus;
-  }
 }
 path.county {
   opacity: 0;
@@ -95,18 +89,20 @@ path.graticule {
   stroke-width: 1px;
   stroke-opacity: 0.5;
 }
+
+// Zones and States
 #zones {
   stroke-width: 0.5px;
-  path.severity0 { fill: #FFFF00; }
-  path.severity1 { fill: #FCD37F; }
-  path.severity2 { fill: #FFAA00; }
-  path.severity3 { fill: #E60000; }
-  path.severity4 { fill: #730000; }
   path               { opacity: 1.00; }
-  &:hover path       { opacity: 0.75; }
-  &:hover path:hover { opacity: 1.00; }
 }
-#states {
-  path               { opacity: 0.10; }
-  path:hover         { opacity: 0.85; }
+.severity0 { fill: #FFFF00; }
+.severity1 { fill: #FCD37F; }
+.severity2 { fill: #FFAA00; }
+.severity3 { fill: #E60000; }
+.severity4 { fill: #730000; }
+.zone                         { opacity: 0.75; }
+.zone:hover                   { opacity: 1.00; }
+.administrative               { opacity: 0.10; }
+.administrative-selected      { opacity: 0.60; }
+.administrative:hover         { opacity: 0.85; }
 }

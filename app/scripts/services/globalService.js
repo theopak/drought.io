@@ -4,22 +4,35 @@ app.factory('globalService',
   function() {
 
     var selectionQueue = [];
+    var deselectionQueue = [];
     var observerCallbacks = [];
-    var notifyObservers = function(){
+    var notifyObservers = function(kind){
       angular.forEach(observerCallbacks, function(callback){
-        callback();
+        if(callback.kind === kind)
+        {
+          callback.callback();
+        }
       });
     };
 
     var globalService = {
-      registerObserverCallback: function(callback){
-        observerCallbacks.push(callback);
+      registerObserverCallback: function(kind, callback){
+        observerCallbacks.push({
+          kind: kind,
+          callback: callback
+        });
       },
-      queue: function(id) {
+      deselect: function(id) {
+        deselectionQueue.push(id);
+        notifyObservers('deselect');
+      },
+      nextDeselection: function() {
+        return deselectionQueue.shift();
+      },
+      select: function(id) {
         selectionQueue.push(id);
-        notifyObservers();
+        notifyObservers('select');
       },
-
       nextSelection: function() {
         return selectionQueue.shift();
       }

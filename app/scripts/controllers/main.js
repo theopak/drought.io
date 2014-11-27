@@ -528,15 +528,17 @@ app.controller('MainCtrl', ['$scope', '$http', 'globalService', 'RainfallSeriesP
     // Query driver
     $scope.appendSeries = function(locationid, year) {
       RainfallSeriesProvider.get({
-        startdate: year + '-01-01',
-        enddate: year + '-12-31',
+        startdate: year.toString() + '-01-01',
+        enddate: year.toString() + '-12-31',
         locationid: locationid
       },
       function(data) {
         console.log('droughtioApp.controller:MainCtrl:$scope.appendSeries:data', data);
         $scope.year = year;
-        data.unshift(locationid.toString());
-        chart.load({columns: [data]});
+        data.unshift(locationid.toString()  + ' ' + year.toString());
+        chart.load({
+          columns: [data]
+        });
       });
     };
 
@@ -575,15 +577,30 @@ app.controller('MainCtrl', ['$scope', '$http', 'globalService', 'RainfallSeriesP
 
     // C3 chart
     var chart = c3.generate($scope.config);
-    $scope.appendSeries('FIPS:12', 2012);
+    // $scope.appendSeries('FIPS:12', 2012);
 
     // Dynamically load new series
     var grab = function() {
-      var next = 'FIPS:' + globalService.nextSelection().toString().substring(0,2);
-      console.log(next);
-      $scope.appendSeries(next, 2012);
+      var id = 'FIPS:' + globalService.nextSelection().toString();
+      console.log('select ' + id);
+      if(chart.data().hasOwnProperty(id)) {
+        // The data was already loaded, so unhide id.
+        chart.show(id);
+      } else {
+        // The data was never loaded, so fetch and then load it.
+        $scope.appendSeries(id, $scope.year);
+      }
     };
-    globalService.registerObserverCallback(grab);
+    globalService.registerObserverCallback('select', grab);
+
+    // Dynamically remove series from the chart according to which states are deselected
+    var hide = function() {
+      var id = 'FIPS:' + globalService.nextDeselection().toString();
+      // $scope.appendSeries(id);
+      console.log('deselect ' + id);
+      chart.hide(id);
+    };
+    globalService.registerObserverCallback('deselect', hide);
 
   }
 ]);
