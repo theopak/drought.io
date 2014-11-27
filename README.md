@@ -24,3 +24,4 @@
 4. http://www.nytimes.com/interactive/2014/upshot/mapping-the-spread-of-drought-across-the-us.html
 5. http://earth.nullschool.net
 6. _Interactive Technologies : Information Visualization : Perception for Design (3rd Edition)_, by Colin Ware
+7. http://cida.usgs.gov/ca_drought/
