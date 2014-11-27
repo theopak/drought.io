@@ -80,10 +80,10 @@ body {
   opacity: 0;
   transition: opacity 5ms ease-in, color 15ms ease-in-out;
 }
-path.county {
+.county {
   opacity: 0;
 }
-path.graticule {
+.graticule {
   fill: none;
   stroke: darken($color-viz-bg, 5);
   stroke-width: 1px;

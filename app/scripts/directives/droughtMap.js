@@ -14,12 +14,9 @@ app.directive('droughtMap', ['d3Service', '$q', 'globalService',
         d3Service.d3().then(function(d3) {
 
             // Set size and position
-            var width = window.innerWidth,
-                minHeight = Math.max(window.innerHeight - $('#navbar').outerHeight(), 240),
-                centered,
-                height = minHeight - $('#details').outerHeight() > 240 ? 
-                  minHeight - $('#details').outerHeight() :
-                  minHeight;
+            var width = $(element[0]).innerWidth(),
+                height = Math.max(window.innerHeight - $('#navbar').outerHeight(), 240),
+                centered;
 
             var projection = d3.geo.albersUsa()
               .scale(700)

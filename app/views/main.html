@@ -1,28 +1,20 @@
-<div id="map" drought-map selection-queue="selectionQueue"></div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-5 col-md-6 col-md-push-6 col-sm-12">
+      <div id="chart"></div>
+    </div>
+    <div class="col-lg-5 col-lg-pull-4 col-md-6 col-md-pull-6 col-sm-12">
+      <div id="map" drought-map selection-queue="selectionQueue"></div>
+    </div>
+  </div>
+</div>
 
 <div id="navbar">
   <div class="container-fluid">
     <div class="row">
       <div class="col-sm-10 col-sm-push-1">
-        <h1 class="brand">Drought.io</h1>
-        <p>Drought is impacting 70.5 million people in the US. <span class="hidden-sm">Click on a location to learn more.</span> <small>Visualization by <a href="https://github.com/theopak/drought.io/">Theo&nbsp;Pak &amp; Altan&nbsp;Gulen</a>. <span class="hidden-sm">Drop designed by <a href="http://thenounproject.com/term/drop/48086/">Julien&nbsp;Deveaux</a> from the Noun Project.</span></small></p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div id="details">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-3 col-md-push-1 col-sm-4 col-sm-push-1 col-xs-12">
-        <h4>{{year}}</h4>
-        <select ng-options="renderer for renderer in renderers" ng-model="renderer"></select>
-        <button class="btn btn-xs btn-primary" ng-click="changeSeriesData(0)">Change series data</button>
-        <div id="legend"></div>
-      </div>
-      <div class="col-md-7 col-md-push-1 col-sm-6 col-sm-push-1 col-xs-12">
-        <h4>{{year}} Cumulative Annual Precipitation</h4>
-        <div id="chart"></div>
+        <h1 class="brand">Drought.io <small>Cumulative Rainfall {{year}}</small></h1>
+        <p>Drought is impacting 70.5 million people in the US. <small>Visualization by <a href="https://github.com/theopak/drought.io/">Theo&nbsp;Pak &amp; Altan&nbsp;Gulen</a>. Data via the <a href="http://droughtmonitor.unl.edu/MapsAndData/GISData.aspx">UNL Drought Monitor</a><span class="hidden-xs"> as provided by the National Drought Mitigation Center (NDMC), the US Department of Agriculture (USDA), and the National Oceanic and Atmospheric Administration (NOAA)</span>. <span class="hidden-sm">Drop designed by <a href="http://thenounproject.com/term/drop/48086/">Julien&nbsp;Deveaux</a> from the Noun Project.</span></small></p>
       </div>
     </div>
   </div>
