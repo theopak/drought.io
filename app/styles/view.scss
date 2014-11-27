@@ -105,4 +105,9 @@ path.graticule {
 .administrative               { opacity: 0.10; }
 .administrative-selected      { opacity: 0.60; }
 .administrative:hover         { opacity: 0.85; }
+
+// Chart
+.c3-axis-y > path,
+.c3-axis-y line {
+  visibility: hidden;
 }

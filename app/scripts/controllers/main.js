@@ -566,10 +566,18 @@ app.controller('MainCtrl', ['$scope', '$http', 'globalService', 'RainfallSeriesP
         x: {
           type: 'timeseries',
           tick: {
-            count: 12,
-            format: '%b'  // d3.date.format() specifier. '%b' is abbreviated month, '%B' is full month name.
+            count: 12,      // 12 months in the year.
+            culling: false, // don't cull (ie, select) the number of ticks. show them all!
+            fit: true,      // fit to size.
+            format: '%b'    // d3.date.format() specifier. '%b' is abbreviated month, '%B' is full month name.
           }
+        },
+        y: {
+          tick: { format: d3.format(',') }
         }
+      },
+      grid: {
+        y: { show: true }
       },
       legend: { position: 'right' },
       type: 'area-step'
