@@ -542,6 +542,12 @@ app.controller('MainCtrl', ['$scope', '$http', 'globalService', 'RainfallSeriesP
       });
     };
 
+    // Compute height
+    var maxHeight = Math.max(window.innerHeight - $('#navbar').outerHeight(), 240);
+    var height = 300;
+    var padding = (maxHeight - height) / 2;
+    height += padding;
+
     // Setup
     $scope.selectionQueue = [];
     $scope.year = 2010;
@@ -555,12 +561,20 @@ app.controller('MainCtrl', ['$scope', '$http', 'globalService', 'RainfallSeriesP
     };
     $scope.config = {
       bindto: '#chart',
+      size: {
+        width: $('#chart').innerWidth(),
+        height: height
+      },
+      padding: {
+        top: padding
+      },
       data: {
         x: 'time',
         columns: [
           dateStrings,
           testSeries
-        ]
+        ],
+        type: 'step'
       },
       axis: {
         x: {
@@ -576,11 +590,16 @@ app.controller('MainCtrl', ['$scope', '$http', 'globalService', 'RainfallSeriesP
           tick: { format: d3.format(',') }
         }
       },
+      tooltip: {
+        format: { 
+          title: d3.time.format('%B %e, %Y'),
+          value: d3.format(',')
+        }
+      },
       grid: {
         y: { show: true }
       },
       legend: { position: 'right' },
-      type: 'area-step'
     };
 
     // C3 chart
