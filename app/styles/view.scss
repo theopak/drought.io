@@ -112,7 +112,7 @@ body {
 .c3-axis-y line {
   visibility: hidden;
 }
-@media (min-width: $screen-md-min) {
+@media (min-width: 992px) {
   body {
     border: 15px solid $color-bg;
     background: $color-bg;
