@@ -543,10 +543,12 @@ app.controller('MainCtrl', ['$scope', '$http', 'globalService', 'RainfallSeriesP
     };
 
     // Compute height
-    var maxHeight = Math.max(window.innerHeight - $('#navbar').outerHeight(), 240);
+    var maxWidth = Math.min($('#chart').innerWidth(), 700);
+    var width = 700;
+    var paddingLeft = (maxWidth - width) / 2;
+    var maxHeight = Math.max(window.innerHeight - 30 - $('#navbar').outerHeight(), 240);
     var height = 300;
-    var padding = (maxHeight - height) / 2;
-    height += padding;
+    var paddingTop = (maxHeight - height) / 2;
 
     // Setup
     $scope.selectionQueue = [];
@@ -562,11 +564,13 @@ app.controller('MainCtrl', ['$scope', '$http', 'globalService', 'RainfallSeriesP
     $scope.config = {
       bindto: '#chart',
       size: {
+        // width: width + paddingLeft,
         width: $('#chart').innerWidth(),
-        height: height
+        height: height + paddingTop
       },
       padding: {
-        top: padding
+        // left: paddingLeft,
+        top: paddingTop
       },
       data: {
         x: 'time',
@@ -599,7 +603,7 @@ app.controller('MainCtrl', ['$scope', '$http', 'globalService', 'RainfallSeriesP
       grid: {
         y: { show: true }
       },
-      legend: { position: 'right' },
+      legend: { position: 'bottom' },
     };
 
     // C3 chart

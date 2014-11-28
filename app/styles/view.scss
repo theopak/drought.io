@@ -10,6 +10,9 @@ body {
   padding: 0;
   background: $color-viz-bg;
 }
+#app {
+  background: $color-viz-bg;
+}
 #navbar, #details {
   // background: $color-bg;
 }
@@ -41,13 +44,8 @@ body {
     margin: 0;
     padding-left: 40px;
     padding-right: 40px;
-    font-weight: normal;
-    color: $color-fg;
-    small {
-      font-size: 1em;
-      font-weight: 300;
-      color: lighten($color-fg, 15);
-    }
+    font-weight: 300;
+    color: lighten($color-fg, 15);
   }
 }
 
@@ -113,4 +111,10 @@ body {
 .c3-axis-y > path,
 .c3-axis-y line {
   visibility: hidden;
+}
+@media (min-width: $screen-md-min) {
+  body {
+    border: 15px solid $color-bg;
+    background: $color-bg;
+  }
 }

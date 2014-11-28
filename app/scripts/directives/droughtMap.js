@@ -15,8 +15,7 @@ app.directive('droughtMap', ['d3Service', '$q', 'globalService',
 
             // Set size and position
             var width = $(element[0]).innerWidth(),
-                height = Math.max(window.innerHeight - $('#navbar').outerHeight(), 240),
-                centered;
+                height = Math.max(window.innerHeight - 30 - $('#navbar').outerHeight(), 240);
 
             var projection = d3.geo.albersUsa()
               .scale(700)
@@ -47,15 +46,15 @@ app.directive('droughtMap', ['d3Service', '$q', 'globalService',
             //   .on('click', reset);
 
             // Zoom to bounding box
-            var active = d3.select(null);
-            var zoom = d3.behavior.zoom()
-              .translate([0, 0])
-              .scale(1)
-              .scaleExtent([1, 8])
-              .on('zoom', zoomed);
-            g
-              .call(zoom) // delete this line to disable free zooming
-              .call(zoom.event);
+            // var active = d3.select(null);
+            // var zoom = d3.behavior.zoom()
+            //   .translate([0, 0])
+            //   .scale(1)
+            //   .scaleExtent([1, 8])
+            //   .on('zoom', zoomed);
+            // g
+            //   .call(zoom) // delete this line to disable free zooming
+            //   .call(zoom.event);
 
             var selectedStates = [];
 
