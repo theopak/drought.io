@@ -17,8 +17,8 @@ app.directive('droughtMap', ['d3Service', '$q', 'globalService',
             var width = $(element[0]).innerWidth(),
                 height = Math.max(window.innerHeight - 30 - $('#navbar').outerHeight(), 240);
 
-            var projection = d3.geo.albersUsa()
-              .scale(700)
+            var projection = d3.geo.albers()
+              .scale(1.3 * width)
               .translate([width / 2, height / 2]);
 
             var path = d3.geo.path()
@@ -29,7 +29,7 @@ app.directive('droughtMap', ['d3Service', '$q', 'globalService',
               .attr('height', height);
 
             var g = svg.append('g')
-              .on('click', stopped, true);
+              // .on('click', stopped, true);
             
             // Add graticules
             // var graticule = d3.geo.graticule();
