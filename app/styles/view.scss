@@ -11,24 +11,26 @@ body {
   background: $color-viz-bg;
 }
 #navbar, #details {
-  background: $color-bg;
+  // background: $color-bg;
 }
 #navbar {
   min-height: 6rem;
   width: 100%;
   padding: 1.5rem 0 2rem;
-  border-top: 1px solid $color-viz-focus;
+  // border-top: 1px solid $color-viz-focus;
   overflow: hidden;
   transition: transform 500ms ease-out;
   z-index: 99;
+  -webkit-font-smoothing: antialiased;
   .brand {
     margin-bottom: -0.25rem;
     font: 400 1.5em/4rem 'Montserrat','Proxima Nova',Arial,sans-serif;
     letter-spacing: -0.03em;
   }
   h1 {
-    margin: 1rem 0 0 -40px;
+    margin: 1rem 0 0;
     padding-left: 40px - 1px;
+    padding-right: 40px;
     background: url(../images/icon.png) no-repeat left;
     @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) { 
       background-image: url(../images/icon@2x.png);
@@ -37,6 +39,8 @@ body {
   }
   p {
     margin: 0;
+    padding-left: 40px;
+    padding-right: 40px;
     font-weight: normal;
     color: $color-fg;
     small {
