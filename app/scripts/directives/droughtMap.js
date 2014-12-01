@@ -366,23 +366,23 @@ app.directive('droughtMap', ['d3Service', '$q', 'globalService',
                   .data(topojson.feature(topology, topology.objects.states).features)
                 .enter().append('path')
                   .attr('class', 'administrative')
-                  /*.attr('class', function(data) {                                        
-                    if(stateIrrigationMap[data.id].percentIrrigated < 1.0) {
-                      return 'percentIrrigated1';
-                    }
-                    else if(stateIrrigationMap[data.id].percentIrrigated < 5.0) {
-                      return 'percentIrrigated5'; 
-                    }                    
-                    else if(stateIrrigationMap[data.id].percentIrrigated < 15.0) {
-                      return 'percentIrrigated15';
-                    }
-                    else if(stateIrrigationMap[data.id].percentIrrigated < 25.0) {
-                      return 'percentIrrigated25';
-                    }
-                    else {
-                      return 'percentIrrigatedMax';
-                    }
-                  })*/                 
+                  // .attr('class', function(data) {                                        
+                  //   if(stateIrrigationMap[data.id].percentIrrigated < 1.0) {
+                  //     return 'percentIrrigated1';
+                  //   }
+                  //   else if(stateIrrigationMap[data.id].percentIrrigated < 5.0) {
+                  //     return 'percentIrrigated5'; 
+                  //   }                    
+                  //   else if(stateIrrigationMap[data.id].percentIrrigated < 15.0) {
+                  //     return 'percentIrrigated15';
+                  //   }
+                  //   else if(stateIrrigationMap[data.id].percentIrrigated < 25.0) {
+                  //     return 'percentIrrigated25';
+                  //   }
+                  //   else {
+                  //     return 'percentIrrigatedMax';
+                  //   }
+                  // })                 
                   .attr('d', path)                  
                   .on('click', function(data) {                    
                     var fips = data.id;
@@ -416,6 +416,7 @@ app.directive('droughtMap', ['d3Service', '$q', 'globalService',
             d3.json('/assets/us.json', function(error, topology) {
               g.append('g')
                 .attr('id', 'irrigation')
+                .attr('visibility', 'hidden')
               .selectAll('path')
                 .data(topojson.feature(topology, topology.objects.states).features)
               .enter().append('path')                
