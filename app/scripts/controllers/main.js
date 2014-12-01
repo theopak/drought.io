@@ -542,6 +542,21 @@ app.controller('MainCtrl', ['$scope', '$http', 'globalService', 'RainfallSeriesP
       });
     };
 
+    $scope.changeLayer = function() {
+        var droughtRadio = $('#droughtRadio');
+        var irrigationRadio = $('#irrigationRadio');        
+
+        //.checked not working for some reason...
+        if(irrigationRadio.checked == true)
+        {
+            //Hide drought layer, show irrigation layer
+        }
+        if(droughtRadio.checked == true)
+        {
+            //Hide irrigation layer, show drought layer
+        }
+    }
+
     // Compute height
     var maxWidth = Math.min($('#chart').innerWidth(), 700);
     var width = 700;

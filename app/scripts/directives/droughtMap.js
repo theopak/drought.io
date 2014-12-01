@@ -9,9 +9,225 @@ app.directive('droughtMap', ['d3Service', '$q', 'globalService',
         data: '=',
         onClick: '&'
       },
-      link: function (scope, element, attrs) {
+      link: function (scope, element, attrs) {        
         console.log('inside drought map!!!');
+
         d3Service.d3().then(function(d3) {
+
+          var stateIrrigationMap = {
+           "1": {
+              "name":"Alabama",
+              "percentIrrigated":1.2
+            },
+            "2": {
+              "name":"Alaska",
+              "percentIrrigated":1.6
+            },
+            "4": {    
+              "name":"Arizona",
+              "percentIrrigated":12.9
+            },
+            "5": {    
+              "name":"Arkansas",
+              "percentIrrigated":25.2
+            },
+            "6": {    
+              "name":"California",
+              "percentIrrigated":25.2
+            },
+            "8": {    
+              "name":"Colorado",
+              "percentIrrigated":11.2
+            },
+            "9": {    
+              "name":"Connecticut",
+              "percentIrrigated":2.3
+            },
+            "10": {    
+              "name":"Delaware",
+              "percentIrrigated":19.7
+            },
+            "12": {    
+              "name":"Florida",
+              "percentIrrigated":11.0
+            },
+            "11": {
+              "name":"DC",
+              "percentIrrigated":0.0
+            },
+            "13": {    
+              "name":"Geogia",
+              "percentIrrigated":7.4
+            },
+            "15": {    
+              "name":"Hawaii",
+              "percentIrrigated":12.6
+            },
+            "16": {    
+              "name":"Idaho",
+              "percentIrrigated":29.7
+            },
+            "17": {    
+              "name":"Illinois",
+              "percentIrrigated":2.0
+            },
+            "18": {
+              "name":"Indiana",
+              "percentIrrigated":2.9
+            },
+            "19": {
+              "name":"Iowa",
+              "percentIrrigated":0.6
+            },
+            "20": {
+              "name":"Kansas",
+              "percentIrrigated":5.9
+            },
+            "21": {
+              "name":"Kentucky",
+              "percentIrrigated":0.4
+            },
+            "22": {    
+              "name":"Louisiana",
+              "percentIrrigated":8.8
+            },
+            "23": {    
+              "name":"Maine",
+              "percentIrrigated":1.4
+            },
+            "24": {
+              "name":"Maryland",
+              "percentIrrigated":3.8
+            },
+            "25": {    
+              "name":"Massachusetts",
+              "percentIrrigated":6.1
+            },
+            "26": {    
+              "name":"Michigan",
+              "percentIrrigated":4.6
+            },
+            "27": {    
+              "name":"Minnesota",
+              "percentIrrigated":2.8
+            },
+            "28": {    
+              "name":"Mississippi",
+              "percentIrrigated":8.3
+            },
+            "29": {
+              "name":"Missouri",
+              "percentIrrigated":4.2
+            },
+            "30": {
+              "name":"Montana",
+              "percentIrrigated":4.8
+            },
+            "31": {
+              "name":"Nebraska",
+              "percentIrrigated":22.3
+            },
+            "32": {
+              "name":"Nevada",
+              "percentIrrigated":20.1
+            },
+            "33": {
+              "name":"New Hampshire",
+              "percentIrrigated":0.6
+            },
+            "34": {
+              "name":"New Jersey",
+              "percentIrrigated":14.1
+            },
+            "35": {
+              "name":"New Mexico",
+              "percentIrrigated":2.1
+            },
+            "36": {
+              "name":"New York",
+              "percentIrrigated":1.6
+            },
+            "37": {
+              "name":"North Carolina",
+              "percentIrrigated":2.0
+            },
+            "38": {
+              "name":"North Dakota",
+              "percentIrrigated":0.7
+            },
+            "39": {
+              "name":"Ohio",
+              "percentIrrigated":0.5
+            },
+            "40": {
+              "name":"Oklahoma",
+              "percentIrrigated":1.1
+            },
+            "41": {
+              "name":"Oregon",
+              "percentIrrigated":12.5
+            },
+            "42": {
+              "name":"Pennsylvania",
+              "percentIrrigated":0.6
+            },
+            "44": {
+              "name":"Rhode Island",
+              "percentIrrigated":6.9
+            },
+            "45": {
+              "name":"South Carolina",
+              "percentIrrigated":3.1
+            },
+            "46": {
+              "name":"South Dakota",
+              "percentIrrigated":1.4
+            },
+            "47": {
+              "name":"Tennessee",
+              "percentIrrigated":1.2
+            },
+            "48": {
+              "name":"Texas",
+              "percentIrrigated":3.4
+            },
+            "49": {
+              "name":"Utah",
+              "percentIrrigated":16.9
+            },
+            "50": {
+              "name":"Vermont",
+              "percentIrrigated":0.3
+            },
+            "51": {
+              "name":"Virginia",
+              "percentIrrigated":0.9
+            },
+            "53": {
+              "name":"Washington",
+              "percentIrrigated":10.4
+            },
+            "54": {
+              "name":"West Virginia",
+              "percentIrrigated":0.1
+            },
+            "55": {
+              "name":"Wisconsin",
+              "percentIrrigated":3.3
+            },
+            "56": {
+              "name":"Wyoming",
+              "percentIrrigated":8.7
+            },
+            "72": {
+              "name":"Puerto Rico",
+              "percentIrrigated":0.0
+            },
+            "78": {
+              "name":"Virgin Islands",
+              "percentIrrigated":0.0
+            }
+          };
 
             // Set size and position
             var width = $(element[0]).innerWidth(),
@@ -150,10 +366,27 @@ app.directive('droughtMap', ['d3Service', '$q', 'globalService',
                   .data(topojson.feature(topology, topology.objects.states).features)
                 .enter().append('path')
                   .attr('class', 'administrative')
-                  .attr('d', path)
-                  // .on('click', clicked);
-                  .on('click', function(data) {
+                  /*.attr('class', function(data) {                                        
+                    if(stateIrrigationMap[data.id].percentIrrigated < 1.0) {
+                      return 'percentIrrigated1';
+                    }
+                    else if(stateIrrigationMap[data.id].percentIrrigated < 5.0) {
+                      return 'percentIrrigated5'; 
+                    }                    
+                    else if(stateIrrigationMap[data.id].percentIrrigated < 15.0) {
+                      return 'percentIrrigated15';
+                    }
+                    else if(stateIrrigationMap[data.id].percentIrrigated < 25.0) {
+                      return 'percentIrrigated25';
+                    }
+                    else {
+                      return 'percentIrrigatedMax';
+                    }
+                  })*/                 
+                  .attr('d', path)                  
+                  .on('click', function(data) {                    
                     var fips = data.id;
+                    d3.select(this).attr('id', stateIrrigationMap[data.id].name);
                     if(selectedStates && selectedStates[fips] === true) {
                       selectedStates[fips] = false;
                       globalService.deselect(fips);
@@ -177,6 +410,33 @@ app.directive('droughtMap', ['d3Service', '$q', 'globalService',
                   //   console.log(countyId);
                   //   globalService.queue(countyId);
                   // });
+            });            
+
+            //Draw the states with color representing % of farm land that is irrigated
+            d3.json('/assets/us.json', function(error, topology) {
+              g.append('g')
+                .attr('id', 'irrigation')
+              .selectAll('path')
+                .data(topojson.feature(topology, topology.objects.states).features)
+              .enter().append('path')                
+                .attr('class', function(data) {                                        
+                  if(stateIrrigationMap[data.id].percentIrrigated < 1.0) {
+                    return 'percentIrrigated1';
+                  }
+                  else if(stateIrrigationMap[data.id].percentIrrigated < 5.0) {
+                    return 'percentIrrigated5'; 
+                  }                    
+                  else if(stateIrrigationMap[data.id].percentIrrigated < 15.0) {
+                    return 'percentIrrigated15';
+                  }
+                  else if(stateIrrigationMap[data.id].percentIrrigated < 25.0) {
+                    return 'percentIrrigated25';
+                  }
+                  else {
+                    return 'percentIrrigatedMax';
+                  }
+                })
+                .attr('d', path)
             });
 
             // Draw the zones of drought severity
