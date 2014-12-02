@@ -13,7 +13,7 @@ app.controller('MainCtrl', ['$scope', '$http', 'globalService', 'RainfallSeriesP
 
     // Initializations
     $scope.selectionQueue = [];
-    $scope.year = 2012;
+    $scope.year = 2013;
     $scope.rainfallSeriesCollection = [];
     var seedData = {
       name: 'Troy, NY',

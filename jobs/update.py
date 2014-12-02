@@ -2,6 +2,7 @@
 
 
 from __future__ import print_function
+import os
 import requests
 import json
 from time import sleep
@@ -13,6 +14,13 @@ def update(id, year):
     given FIPS location and store the result in a dot-json file.
     '''
 
+    # Skip if the file already exists
+    filename = 'app/assets/prcp/' + str(year) + '-fips' + str(id).zfill(2) + '.json'
+    if os.path.isfile(filename):
+        print("Skip FIPS:" + str(id).zfill(2) + " (" + str(year) + ")... ")
+        return
+
+    # Build the request
     url = 'http://www.ncdc.noaa.gov/cdo-web/api/v2/data'
     parameters = {
       'datasetid':  'GHCND',                        # GHCND is "Daily Summaries"
@@ -26,11 +34,13 @@ def update(id, year):
       'Accept': 'application/json',
       'token': 'kjslmSNkMbvnPHEMUqxlAiKcBlpERRzr'   # pakt@rpi.edu API token
     }
+
+    # Make the request and write to file, catching any errors
     print("Updating FIPS:" + str(id).zfill(2) + " (" + str(year) + ")... ")
     try:
         resp = requests.get(url, params=parameters, headers=headers)
         # print(resp.text)
-        with open('app/assets/prcp/' + str(year) + '-fips' + str(id).zfill(2) + '.json', 'w') as outfile:
+        with open(filename, 'w') as outfile:
             json.dump(resp.json(), outfile)
             print("saved")
     except ValueError:
@@ -42,6 +52,6 @@ def update(id, year):
 if __name__ == "__main__":
     fipsList = [53, 30, 16, 38, 27, 23, 26, 55, 41, 46, 33, 50, 36, 56, 19, 31, 25, 17, 42, 9, 44, 6, 49, 32, 39, 18, 34, 8, 54, 29, 20, 10, 24, 51, 21, 11, 4, 40, 35, 47, 37, 48, 5, 45, 1, 13, 28, 22, 12, 15, 2, 72, 78]
     fipsList.sort()
-    for year in xrange(2011, 2014):
+    for year in xrange(2014, 2010, -1):
         for id in fipsList:
             update(id, year)
