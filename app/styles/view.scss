@@ -101,11 +101,11 @@ body {
 .severity2 { fill: #FFAA00; }
 .severity3 { fill: #E60000; }
 .severity4 { fill: #730000; }
-.percentIrrigated1   { fill: #FFCCFF; }
-.percentIrrigated5   { fill: #D899D8; }
-.percentIrrigated15  { fill: #B266B2; }
-.percentIrrigated25  { fill: #8C338C; }
-.percentIrrigatedMax { fill: #660066; }
+.percentIrrigated1   { fill: #FFCCFF; stroke-width: 1px; stroke: $color-fg; stroke-opacity:0.5; }
+.percentIrrigated5   { fill: #D899D8; stroke-width: 1px; stroke: $color-fg; stroke-opacity:0.5; }
+.percentIrrigated15  { fill: #B266B2; stroke-width: 1px; stroke: $color-fg; stroke-opacity:0.5; }
+.percentIrrigated25  { fill: #8C338C; stroke-width: 1px; stroke: $color-fg; stroke-opacity:0.5; }
+.percentIrrigatedMax { fill: #660066; stroke-width: 1px; stroke: $color-fg; stroke-opacity:0.5; }
 .zone                         { opacity: 0.75; }
 .zone:hover                   { opacity: 1.00; }
 .administrative               { opacity: 0.10; }

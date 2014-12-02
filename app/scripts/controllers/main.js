@@ -541,24 +541,30 @@ app.controller('MainCtrl', ['$scope', '$http', 'globalService', 'RainfallSeriesP
       });
     };
 
-    $scope.changeLayer = function() {
-        var droughtRadio = $('#droughtRadio');
-        var irrigationRadio = $('#irrigationRadio');        
+    $scope.layerToggles = [
+        { name: 'Drought Severity'},
+        { name: '% of farm land requiring irrigation'}
+    ];
 
-        //.checked not working for some reason...
-        if(irrigationRadio.selected == true)
+    $scope.index = { };    
+
+    $scope.$watch('index', function(newValue, oldValue) {
+        if(newValue !== oldValue)
         {
-            //Hide drought layer, show irrigation layer
-            d3.select('#zones').attr('visibility', 'hidden');
-            d3.select('#irrigation').attr('visibility', 'visible');
-        }
-        if(droughtRadio.selected == true)
-        {
-            //Hide irrigation layer, show drought layer
-            d3.select('#irrigation').attr('visibility', 'hidden');
-            d3.select('#zones').attr('visibility', 'visible');
-        }
-    };
+            if(newValue.name == $scope.layerToggles[0].name)
+            {
+                //Hide irrigation layer, show drought layer
+                d3.select('#irrigation').attr('visibility', 'hidden');
+                d3.select('#zones').attr('visibility', 'visible');       
+            }
+            if(newValue.name == $scope.layerToggles[1].name)
+            {                
+                //Hide drought layer, show irrigation layer
+                d3.select('#zones').attr('visibility', 'hidden');
+                d3.select('#irrigation').attr('visibility', 'visible');    
+            }
+        }        
+    });
 
     // Compute height
     var maxWidth = Math.min($('#chart').innerWidth(), 700);

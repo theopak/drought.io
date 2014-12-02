@@ -8,11 +8,10 @@
     </div>
   </div>
   <div class="row">
-    <div class="container-fluid">
-      <form id="layerForm">
-        <input id="droughtRadio" type="radio" ng-click="changeLayer()" name="layerToggle" checked="checked">Drought Severity</input><br/>
-        <input id="irrigationRadio" type="radio" ng-click="changeLayer()" name="layerToggle">% of farm land requiring irrigation</input>
-      </form>
+    <div class="container-fluid" ng-controller="MainCtrl">
+      <div class="form-field">
+        <select ng-options="layerToggle.name for layerToggle in layerToggles" ng-model="index" ng-init="index = layerToggles[0]"/>
+      </div>
     </div>
   </div>
 </div>
