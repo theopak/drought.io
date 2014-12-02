@@ -4,7 +4,7 @@ app.directive('droughtMap', ['d3Service', '$q', 'globalService',
   function (d3Service, $q, globalService) {
     return {
       restrict: 'AE',
-      replace: true,
+      replace: false,
       scope: {
         data: '=',
         onClick: '&'
@@ -56,7 +56,7 @@ app.directive('droughtMap', ['d3Service', '$q', 'globalService',
               'percentIrrigated': 0.0
             },
             '13': {    
-              'name': 'Geogia',
+              'name': 'Georgia',
               'percentIrrigated': 7.4
             },
             '15': {    
@@ -244,9 +244,12 @@ app.directive('droughtMap', ['d3Service', '$q', 'globalService',
 
             // Set size and position
             var width = $(element[0]).innerWidth(),
-                height = Math.max(window.innerHeight - 30 - $('#navbar').outerHeight(), 240);
+                maxHeight = Math.max(window.innerHeight - 30 - $('#navbar').outerHeight(), 240),
+                height = 320,
+                paddingTop = Math.max((maxHeight - height) / 2, 0);
+            $('#map').parent().find('h2').css('margin-top', paddingTop);
 
-            var projection = d3.geo.albers()
+            var projection = d3.geo.albersUsa()
               .scale(1.3 * width)
               .translate([width / 2, height / 2]);
 

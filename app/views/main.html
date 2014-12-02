@@ -1,9 +1,11 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-lg-5 col-md-6 col-md-push-6 col-sm-12">
+      <h2>{{year}} {{chartTitle}}</h2>
       <div id="chart"></div>
     </div>
     <div class="col-lg-5 col-lg-pull-4 col-md-6 col-md-pull-6 col-sm-12">
+      <h2 ng-click="toggleMap()" class="clickable">{{mapTitle}}</h2>
       <div id="map" drought-map selection-queue="selectionQueue"></div>
     </div>
   </div>
@@ -14,8 +16,8 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-10 col-lg-push-1 col-sm-12">
-        <h1 class="brand">Drought.io <small>Cumulative Rainfall {{year}}</small></h1>
-        <p><select ng-options="layerToggle.name for layerToggle in layerToggles" ng-model="index" ng-init="index = layerToggles[0]" ></select> Visualization by <a href="https://github.com/theopak/drought.io/">Theo&nbsp;Pak &amp; Altan&nbsp;Gulen</a>. Data via the <a href="http://droughtmonitor.unl.edu/MapsAndData/GISData.aspx">UNL Drought Monitor</a><span class="hidden-xs"> as provided by the National Drought Mitigation Center (NDMC), the US Department of Agriculture (USDA), and the National Oceanic and Atmospheric Administration (NOAA)</span>. <span class="hidden-sm">Drop designed by <a href="http://thenounproject.com/term/drop/48086/">Julien&nbsp;Deveaux</a> from the Noun Project.</span></p>
+        <h1 class="brand">Drought.io</h1>
+        <p>Visualization by <a href="https://github.com/theopak/drought.io/">Theo&nbsp;Pak &amp; Altan&nbsp;Gulen</a>. Data via the <a href="http://droughtmonitor.unl.edu/MapsAndData/GISData.aspx">UNL Drought Monitor</a><span class="hidden-xs"> as provided by the National Drought Mitigation Center (NDMC), the US Department of Agriculture (USDA), and the National Oceanic and Atmospheric Administration (NOAA)</span>. <span class="hidden-sm">Drop designed by <a href="http://thenounproject.com/term/drop/48086/">Julien&nbsp;Deveaux</a> from the Noun Project.</span></p>
       </div>
     </div>
   </div>

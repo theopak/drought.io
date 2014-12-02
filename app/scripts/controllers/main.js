@@ -534,7 +534,7 @@ app.controller('MainCtrl', ['$scope', '$http', 'globalService', 'RainfallSeriesP
       '10': 'Delaware',
       '12': 'Florida',
       '11': 'DC',
-      '13': 'Geogia',
+      '13': 'Georgia',
       '15': 'Hawaii',
       '16': 'Idaho',
       '17': 'Illinois',
@@ -607,38 +607,37 @@ app.controller('MainCtrl', ['$scope', '$http', 'globalService', 'RainfallSeriesP
       });
     };
 
-    $scope.layerToggles = [
-      { name: 'Drought Severity'},
-      { name: '% of farm land requiring irrigation'}
+    $scope.mapTitles = [
+      'Drought Severity',
+      'Land Requiring Irrigation (% Total)'
     ];
-    $scope.index = { };    
+    $scope.index = {};
+    $scope.mapTitle = $scope.mapTitles[0];
+    $scope.chartTitle = 'Cumulative Rainfall (inches)';
 
     // Listener for when user toggles between map layers
-    $scope.$watch('index', function(newValue, oldValue) {
-      if(newValue !== oldValue)
-      {
-        if(newValue.name === $scope.layerToggles[0].name)
-        {
-          // Hide irrigation layer, show drought layer
-          d3.select('#irrigation').attr('visibility', 'hidden');
-          d3.select('#zones').attr('visibility', 'visible');       
-        }
-        if(newValue.name === $scope.layerToggles[1].name)
-        {                
-          // Hide drought layer, show irrigation layer
-          d3.select('#zones').attr('visibility', 'hidden');
-          d3.select('#irrigation').attr('visibility', 'visible');    
-        }
-      }        
-    });
+    $scope.toggleMap = function() {
+      console.log('toggleMap', $scope.mapTitle, $scope.mapTitles[0]);
+      if($scope.mapTitle === $scope.mapTitles[1]) {
+        // Hide irrigation layer, show drought layer
+        $scope.mapTitle = $scope.mapTitles[0];
+        d3.select('#irrigation').attr('visibility', 'hidden');
+        d3.select('#zones').attr('visibility', 'visible');
+      } else if($scope.mapTitle === $scope.mapTitles[0]) {
+        // Hide drought layer, show irrigation layer
+        $scope.mapTitle = $scope.mapTitles[1];
+        d3.select('#zones').attr('visibility', 'hidden');
+        d3.select('#irrigation').attr('visibility', 'visible');
+      }  
+    };
 
     // Compute height
     var maxWidth = Math.min($('#chart').innerWidth(), 700);
     var width = 700;
-    var paddingLeft = (maxWidth - width) / 2;
     var maxHeight = Math.max(window.innerHeight - 30 - $('#navbar').outerHeight(), 240);
-    var height = 300;
-    var paddingTop = (maxHeight - height) / 2;
+    var height = 320;
+    var paddingTop = Math.max((maxHeight - height) / 2, 0);
+    $('#chart').parent().find('h2').css('margin-top', paddingTop);
 
     // Setup
     $scope.schema = {
@@ -652,12 +651,8 @@ app.controller('MainCtrl', ['$scope', '$http', 'globalService', 'RainfallSeriesP
       bindto: '#chart',
       size: {
         // width: width + paddingLeft,
-        width: $('#chart').innerWidth(),
-        height: height + paddingTop
-      },
-      padding: {
-        // left: paddingLeft,
-        top: paddingTop
+        // width: $('#chart').innerWidth(),
+        height: height
       },
       data: {
         x: 'time',
@@ -695,6 +690,7 @@ app.controller('MainCtrl', ['$scope', '$http', 'globalService', 'RainfallSeriesP
 
     // C3 chart
     var chart = c3.generate($scope.config);
+    $('#navbar').css('margin-top', window.innerHeight - document.getElementById('navbar').getBoundingClientRect().bottom - 20);
 
     // Zerofill/pad function via http://stackoverflow.com/a/10073788
     function pad(n, width, z) {

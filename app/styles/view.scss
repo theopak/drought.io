@@ -13,8 +13,17 @@ body {
 #app {
   background: $color-viz-bg;
 }
-#navbar, #details {
-  // background: $color-bg;
+::selection {
+  background: transparent;
+}
+#navbar, h2 {
+  ::selection { 
+    background: $color-viz-bg;
+    color: darken($color-viz-focus, 5);
+  }
+  a::selection {
+    color: #428bca;
+  }
 }
 #navbar {
   min-height: 6rem;
@@ -49,13 +58,21 @@ body {
   }
 }
 
+.clickable {
+  cursor: pointer;
+}
+h2 {
+  font: 400 1.5em/4rem 'Montserrat','Proxima Nova',Arial,sans-serif;
+  text-align: center;
+  color: $color-viz-focus;
+  -webkit-font-smoothing: antialiased;
+}
 #chart {
   overflow: hidden;
   & > svg {
     max-width: 100%;
   }
 }
-
 #map {
   // position: fixed;
   top: 0;
@@ -129,6 +146,7 @@ body {
 .administrative                { opacity: 0.10; }
 .administrative-selected       { opacity: 0.60; }
 .administrative:hover          { opacity: 0.85; }
+.administrative-selected:hover { opacity: 0.85; }
 
 // Chart
 .c3-axis-y > path,
