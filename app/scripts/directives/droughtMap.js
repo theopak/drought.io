@@ -378,9 +378,9 @@ app.directive('droughtMap', ['d3Service', '$q', 'globalService',
                 .selectAll('path')
                   .data(topojson.feature(topology, topology.objects.states).features)
                 .enter().append('path')
-                  .attr('class', 'administrative')               
+                  .attr('class', 'administrative')   
                   .attr('d', path)                  
-                  .on('click', function(data) {                    
+                  .on('click', function(data) {     
                     var fips = data.id;
                     d3.select(this).attr('id', 'fips' + data.id.toString());
                     if(selectedStates && selectedStates[fips] === true) {
@@ -419,6 +419,7 @@ app.directive('droughtMap', ['d3Service', '$q', 'globalService',
                   //   console.log(countyId);
                   //   globalService.queue(countyId);
                   // });
+
             });
 
             // Draw the zones of drought severity

@@ -101,16 +101,34 @@ body {
 .severity2 { fill: #FFAA00; }
 .severity3 { fill: #E60000; }
 .severity4 { fill: #730000; }
-.percentIrrigated1   { fill: #FFCCFF; stroke-width: 1px; stroke: $color-fg; stroke-opacity:0.5; }
-.percentIrrigated5   { fill: #D899D8; stroke-width: 1px; stroke: $color-fg; stroke-opacity:0.5; }
-.percentIrrigated15  { fill: #B266B2; stroke-width: 1px; stroke: $color-fg; stroke-opacity:0.5; }
-.percentIrrigated25  { fill: #8C338C; stroke-width: 1px; stroke: $color-fg; stroke-opacity:0.5; }
-.percentIrrigatedMax { fill: #660066; stroke-width: 1px; stroke: $color-fg; stroke-opacity:0.5; }
-.zone                         { opacity: 0.75; }
-.zone:hover                   { opacity: 1.00; }
-.administrative               { opacity: 0.10; }
-.administrative-selected      { opacity: 0.60; }
-.administrative:hover         { opacity: 0.85; }
+
+#irrigation {
+  stroke-width: 1px; 
+  stroke: $color-fg; 
+  stroke-opacity:0.5;  
+}
+
+.percentIrrigated1            { fill: #FFCCFF; transition: opacity 5ms ease-in, color 15ms ease-in-out; }
+.percentIrrigated1:hover      { opacity: 0.85; }
+.percentIrrigated1-selected   { opacity: 0.6; }
+.percentIrrigated5            { fill: #D899D8; transition: opacity 5ms ease-in, color 15ms ease-in-out; }
+.percentIrrigated5:hover      { opacity: 0.85; }
+.percentIrrigated5-selected   { opacity: 0.6; }
+.percentIrrigated15           { fill: #B266B2; transition: opacity 5ms ease-in, color 15ms ease-in-out; }
+.percentIrrigated15:hover     { opacity: 0.85; }
+.percentIrrigated15-selected  { opacity: 0.6; }
+.percentIrrigated25           { fill: #8C338C; transition: opacity 5ms ease-in, color 15ms ease-in-out; }
+.percentIrrigated25:hover     { opacity: 0.85; }
+.percentIrrigated25-selected  { opacity: 0.6; }
+.percentIrrigatedMax          { fill: #660066; transition: opacity 5ms ease-in, color 15ms ease-in-out; }
+.percentIrrigatedMax:hover    { opacity: 0.85; }
+.percentIrrigatedMax-selected { opacity: 0.6; }
+
+.zone                          { opacity: 0.75; }
+.zone:hover                    { opacity: 1.00; }
+.administrative                { opacity: 0.10; }
+.administrative-selected       { opacity: 0.60; }
+.administrative:hover          { opacity: 0.85; }
 
 // Chart
 .c3-axis-y > path,
