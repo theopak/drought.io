@@ -27,11 +27,15 @@ def update(id, year):
       'token': 'kjslmSNkMbvnPHEMUqxlAiKcBlpERRzr'   # pakt@rpi.edu API token
     }
     print("Updating FIPS:" + str(id).zfill(2) + " (" + str(year) + ")... ")
-    resp = requests.get(url, params=parameters, headers=headers)
-    # print(resp.text)
-    with open('app/assets/prcp/' + str(year) + '-fips' + str(id).zfill(2) + '.json', 'w') as outfile:
-        json.dump(resp.json(), outfile)
-        print("saved")
+    try:
+        resp = requests.get(url, params=parameters, headers=headers)
+        # print(resp.text)
+        with open('app/assets/prcp/' + str(year) + '-fips' + str(id).zfill(2) + '.json', 'w') as outfile:
+            json.dump(resp.json(), outfile)
+            print("saved")
+    except ValueError:
+        print("uh oh")
+        print(ValueError)
     return
 
 
