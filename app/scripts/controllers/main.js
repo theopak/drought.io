@@ -528,9 +528,8 @@ app.controller('MainCtrl', ['$scope', '$http', 'globalService', 'RainfallSeriesP
     // Query driver
     $scope.appendSeries = function(locationid, year) {
       RainfallSeriesProvider.get({
-        startdate: year.toString() + '-01-01',
-        enddate: year.toString() + '-12-31',
-        locationid: locationid
+        year: year,
+        id: locationid
       },
       function(data) {
         console.log('droughtioApp.controller:MainCtrl:$scope.appendSeries:data', data);
@@ -629,9 +628,16 @@ app.controller('MainCtrl', ['$scope', '$http', 'globalService', 'RainfallSeriesP
     var chart = c3.generate($scope.config);
     // $scope.appendSeries('FIPS:12', 2012);
 
+    // Zerofill/pad function via http://stackoverflow.com/a/10073788
+    function pad(n, width, z) {
+      z = z || '0';
+      n = n + '';
+      return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+    }
+
     // Dynamically load new series
     var grab = function() {
-      var id = 'FIPS:' + globalService.nextSelection().toString();
+      var id = pad(globalService.nextSelection(), 2).toString();
       console.log('select ' + id);
       if(chart.data().hasOwnProperty(id)) {
         // The data was already loaded, so unhide id.
@@ -645,7 +651,7 @@ app.controller('MainCtrl', ['$scope', '$http', 'globalService', 'RainfallSeriesP
 
     // Dynamically remove series from the chart according to which states are deselected
     var hide = function() {
-      var id = 'FIPS:' + globalService.nextDeselection().toString();
+      var id = globalService.nextDeselection().toString();
       // $scope.appendSeries(id);
       console.log('deselect ' + id);
       chart.hide(id);
