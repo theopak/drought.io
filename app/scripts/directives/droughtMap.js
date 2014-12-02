@@ -382,7 +382,7 @@ app.directive('droughtMap', ['d3Service', '$q', 'globalService',
                   .attr('d', path)                  
                   .on('click', function(data) {                    
                     var fips = data.id;
-                    d3.select(this).attr('id', stateIrrigationMap[data.id].name);
+                    d3.select(this).attr('id', 'fips' + data.id.toString());
                     if(selectedStates && selectedStates[fips] === true) {
                       selectedStates[fips] = false;
                       globalService.deselect(fips);
