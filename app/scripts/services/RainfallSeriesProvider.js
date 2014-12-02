@@ -32,16 +32,11 @@ app.factory('RainfallSeriesProvider', ['$resource',
   function($resource) {
 
     // Important part
-    return $resource('http://www.ncdc.noaa.gov/cdo-web/api/v2/data', {},
+    return $resource('../assets/prcp/:year-fips:id.json', {},
     {
       get: {
         method: 'GET',
         isArray: true,
-        headers: { 
-          'Accept': 'application/json',
-          'token': 'kjslmSNkMbvnPHEMUqxlAiKcBlpERRzr'
-        },
-        // transformResponse: reformatNormalsResponse,
         transformResponse: function (data) {
           var accumulation = 0;
           var lastDay = 0;
@@ -59,15 +54,6 @@ app.factory('RainfallSeriesProvider', ['$resource',
             return accumulation += item.value;
           });
           // return _.pluck(angular.fromJson(data).results, 'date');
-        },
-        params: {
-          // Options for the NOAA NCDC API
-          'datasetid':  'GHCND',            // GHCND is "Daily Summaries"
-          'datatypeid': 'PRCP',             // PRCP is "precipitation"
-          'limit':      800                 // arbitrary large number
-          // 'startdate':  '2014-01-01',  // must be format YYYY-MM-DD
-          // 'enddate':    '2014-12-01',  // must be format YYYY-MM-DD
-          // 'locationid': 'ZIP:12180'    ,   // select by ZIP, station id, etc
         }
       }
     });
