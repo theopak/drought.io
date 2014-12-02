@@ -406,7 +406,23 @@ app.directive('droughtMap', ['d3Service', '$q', 'globalService',
                     console.log('!!!!!', temp);
                     return temp.toString();
                   })
-                  .attr('d', path);
+                  .attr('d', path)
+                  .on('click', function(data) {     
+                    var fips = data.id;
+                    var irrigationLevel = stateIrrigationMap[data.id].percentIrrigated; 
+                    d3.select(this).attr('id', stateIrrigationMap[data.id].name);
+                    if(selectedStates && selectedStates[fips] === true) {
+                      selectedStates[fips] = false;
+                      globalService.deselect(fips);
+                      d3.select(this).attr('class', irrigationLevel);                      
+                    } else {
+                      selectedStates[fips] = true;
+                      globalService.select(fips);
+                      irrigationLevel += '-selected';
+                      d3.select(this).attr('class', irrigationLevel);
+                    }
+                    console.log(fips);
+                  });
               // g.append('g')
               //     .attr('id', 'counties')
               //   .selectAll('path')
