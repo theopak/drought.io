@@ -365,26 +365,9 @@ app.directive('droughtMap', ['d3Service', '$q', 'globalService',
                 .selectAll('path')
                   .data(topojson.feature(topology, topology.objects.states).features)
                 .enter().append('path')
-                  .attr('class', 'administrative')
-                  // .attr('class', function(data) {                                        
-                  //   if(stateIrrigationMap[data.id].percentIrrigated < 1.0) {
-                  //     return 'percentIrrigated1';
-                  //   }
-                  //   else if(stateIrrigationMap[data.id].percentIrrigated < 5.0) {
-                  //     return 'percentIrrigated5'; 
-                  //   }                    
-                  //   else if(stateIrrigationMap[data.id].percentIrrigated < 15.0) {
-                  //     return 'percentIrrigated15';
-                  //   }
-                  //   else if(stateIrrigationMap[data.id].percentIrrigated < 25.0) {
-                  //     return 'percentIrrigated25';
-                  //   }
-                  //   else {
-                  //     return 'percentIrrigatedMax';
-                  //   }
-                  // })                 
+                  .attr('class', 'administrative')                
                   .attr('d', path)                  
-                  .on('click', function(data) {                    
+                  .on('click', function(data) {     
                     var fips = data.id;
                     d3.select(this).attr('id', stateIrrigationMap[data.id].name);
                     if(selectedStates && selectedStates[fips] === true) {
@@ -398,6 +381,8 @@ app.directive('droughtMap', ['d3Service', '$q', 'globalService',
                     }
                     console.log(fips);
                   });
+
+
               // g.append('g')
               //     .attr('id', 'counties')
               //   .selectAll('path')
@@ -438,6 +423,23 @@ app.directive('droughtMap', ['d3Service', '$q', 'globalService',
                   }
                 })
                 .attr('d', path)
+                .on('click', function(data) {
+                    console.log(data);
+                    var fips = data.id;
+                    var percentIrrigated = d3.select(this).attr('class');
+                    d3.select(this).attr('id', stateIrrigationMap[data.id].name);
+                    if(selectedStates && selectedStates[fips] === true) {
+                      selectedStates[fips] = false;
+                      globalService.deselect(fips);
+                      d3.select(this).attr('class', percentIrrigated);
+                    } else {
+                      selectedStates[fips] = true;
+                      globalService.select(fips);
+                      percentIrrigated += '-selected';
+                      d3.select(this).attr('class', percentIrrigated);
+                    }
+                    console.log(fips);
+                });
             });
 
             // Draw the zones of drought severity

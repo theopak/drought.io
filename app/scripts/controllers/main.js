@@ -549,6 +549,7 @@ app.controller('MainCtrl', ['$scope', '$http', 'globalService', 'RainfallSeriesP
 
     $scope.index = { };    
 
+    //Listener for when user toggles between map layers
     $scope.$watch('index', function(newValue, oldValue) {
         if(newValue !== oldValue)
         {
