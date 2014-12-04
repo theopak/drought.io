@@ -10,7 +10,8 @@
 - Mapping
   - [_Let’s Make a Map_, by Mike Bostock](http://bost.ocks.org/mike/map/)
   - [_Interactive Map with D3.js_, by Mike Bostock](http://www.tnoda.com/blog/2013-12-07)
-  - Data Source: http://droughtmonitor.unl.edu/MapsAndData/GISData.aspx
+  - Drought Data Source: http://droughtmonitor.unl.edu/MapsAndData/GISData.aspx
+  - Agriculture Data Source: http://www.agcensus.usda.gov/Publications/2012/Online_Resources/Ag_Census_Web_Maps/Data_download/index.php
   - Shapefile-to-TopoJSON Conversion Tool: http://www.mapshaper.org
 - D3.js charts: [_Let’s Make a Bar Chart, Parts 1-3_, by Mike Bostock](http://bost.ocks.org/mike/bar/)
 - Deploying: refer to https://devcenter.heroku.com/articles/getting-started-with-nodejs#prepare-the-app
